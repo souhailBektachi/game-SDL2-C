@@ -37,7 +37,7 @@ int WinMain()
         }
             clear(&window);
             
-                render(platform0,&window);
+                render(&platform0,&window);
             
             
             

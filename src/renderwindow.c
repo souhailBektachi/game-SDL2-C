@@ -38,7 +38,7 @@ void clear(RenderW* renderwindow){
     
 }
 
-void render(SDL_Texture* p_texture,RenderW* renderwindow){
+void render(Entity* p_entity,RenderW* renderwindow){
     SDL_Rect src;
     src.x=0;
     src.y=0;
@@ -46,11 +46,11 @@ void render(SDL_Texture* p_texture,RenderW* renderwindow){
     src.w=32;
     
     SDL_Rect dst;
-    dst.x=0;
-    dst.y=0;
+    dst.x=entity_getx(p_entity);
+    dst.y=entity_gety(p_entity);
     dst.h=32;
     dst.w=32;
-    SDL_RenderCopy(renderwindow->renderer,p_texture,&src,&dst);
+    SDL_RenderCopy(renderwindow->renderer,entity_getTex(p_entity),&src,&dst);
     
     
     

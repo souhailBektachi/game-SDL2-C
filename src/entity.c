@@ -14,3 +14,28 @@ void entity(float x,float y,SDL_Texture* texture,Entity* entity)
 
 
 }
+float entity_getx(Entity* entity){
+    return entity->x;
+}
+float entity_gety(Entity* entity){
+    return entity->y;
+}
+SDL_Texture* entity_getTex(Entity* entity){
+    return entity->texture;
+}
+SDL_Rect entity_getCFrame(Entity* entity){
+    return entity->currentFrame;
+}
+void entity_setx(Entity* entity,float x){
+    entity->x=x;
+}
+void entity_sety(Entity* entity,float y){
+    entity->y=y;
+}
+void entity_setTex(Entity* entity,SDL_Texture* tex){
+    entity->texture=tex;
+}
+void entity_setCFrame(Entity* entity,SDL_Rect CFrame){
+    entity->currentFrame=CFrame;
+
+}
