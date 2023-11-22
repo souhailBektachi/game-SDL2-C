@@ -40,10 +40,10 @@ void clear(RenderW* renderwindow){
 
 void render(Entity* p_entity,RenderW* renderwindow){
     SDL_Rect src;
-    src.x=0;
-    src.y=0;
-    src.h=32;
-    src.w=32;
+    src.x=entity_getCFrame(p_entity).x;
+    src.y=entity_getCFrame(p_entity).y;
+    src.h=entity_getCFrame(p_entity).h;
+    src.w=entity_getCFrame(p_entity).w;
     
     SDL_Rect dst;
     dst.x=entity_getx(p_entity);
