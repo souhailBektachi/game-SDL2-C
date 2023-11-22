@@ -4,19 +4,22 @@
 #include "renderwindow.h"
 int WinMain()
 {
+
     if (SDL_Init(SDL_INIT_VIDEO)>0)
     {
         printf("SDL INIT HAS FAILED %s",SDL_GetError());
     }
     
-    if(!(IMG_Init(IMG_INIT_PNG))){
-        printf("Img init has failed %s",IMG_GetError());
+   if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) {
+    fprintf(stderr, "Unable to initialize SDL_image: %s\n", IMG_GetError());
+    return 1;
+}
 
 
-    }
     RenderW window;
-    RenderWindow("test",960,540,window);
-    // SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",window);
+    RenderWindow("test",854,480,&window);
+    
+    SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",&window);
 
 
 
@@ -30,13 +33,17 @@ int WinMain()
             }
             
         }
-            // clear(window);
-            // render(grassTexture,window);
-            // display(window);
+            clear(&window);
+            
+                render(grassTexture,&window);
+            
+            
+            
+            display(&window);
         
 
     }
-    cleanUp(window);
+    cleanUp(&window);
     SDL_Quit();
     return 0;
 }
