@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include "renderwindow.h"
+#include "entity.h"
 int WinMain()
 {
 
@@ -20,11 +21,12 @@ int WinMain()
     RenderWindow("test",854,480,&window);
     
     SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",&window);
-
+    Entity platform0;
+    entity(100,100,grassTexture,&platform0);
 
 
     int gameRunning=1;
-    SDL_Event event;
+    SDL_Event event;   
     while(gameRunning){
         while (SDL_PollEvent(&event))
         {
@@ -35,7 +37,7 @@ int WinMain()
         }
             clear(&window);
             
-                render(grassTexture,&window);
+                render(platform0,&window);
             
             
             

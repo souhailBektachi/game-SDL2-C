@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
+#include "entity.h"
 typedef struct {
     SDL_Window* window;
     SDL_Renderer* renderer;
