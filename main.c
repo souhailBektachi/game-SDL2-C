@@ -16,7 +16,7 @@ int WinMain()
     }
     RenderW window;
     RenderWindow("test",960,540,window);
-    SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",window);
+    // SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",window);
 
 
 

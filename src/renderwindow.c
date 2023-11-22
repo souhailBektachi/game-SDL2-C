@@ -14,8 +14,12 @@ void RenderWindow(const char* p_title,int p_w ,int p_h,RenderW renderwindow ){
         printf("Window failed to init %S\n",SDL_GetError());
     }
     renderwindow.renderer=SDL_CreateRenderer(renderwindow.window,-1,SDL_RENDERER_ACCELERATED);
+    SDL_SetRenderDrawColor(renderwindow.renderer, 173, 216, 230, 255);
     SDL_RenderClear(renderwindow.renderer);
-    
+    SDL_RenderPresent(renderwindow.renderer);
+
+
+
     
 
 
