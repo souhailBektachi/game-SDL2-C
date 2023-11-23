@@ -15,6 +15,7 @@ void RenderWindow(const char* p_title,int p_w ,int p_h,RenderW* renderwindow ){
         printf("Window failed to init %s\n",SDL_GetError());
     }
     renderwindow->renderer=SDL_CreateRenderer(renderwindow->window,-1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    
     SDL_SetRenderDrawColor(renderwindow->renderer,173,216,230,255);
     clear(renderwindow);
     display(renderwindow);
@@ -40,7 +41,7 @@ void clear(RenderW* renderwindow){
     
 }
 
-void render(Entity* p_entity,RenderW* renderwindow){
+void render(Entity* p_entity,RenderW* renderwindow,int flip){
     SDL_Rect src;
     src.x=entity_getCFrame(p_entity).x;
     src.y=entity_getCFrame(p_entity).y;
@@ -52,8 +53,14 @@ void render(Entity* p_entity,RenderW* renderwindow){
     dst.y=entity_gety(p_entity);
     dst.h=entity_getCFrame(p_entity).h;
     dst.w=entity_getCFrame(p_entity).w;
-    SDL_RenderCopy(renderwindow->renderer,entity_getTex(p_entity),&src,&dst);
+    if(flip){
+    SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  SDL_FLIP_HORIZONTAL);}else{
+        
+    SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  SDL_FLIP_NONE);
+
     
+
+    }
     
     
 
@@ -65,5 +72,7 @@ void display(RenderW *renderwindow){
     SDL_RenderPresent(renderwindow->renderer);
 }
 void cleanUp(RenderW* renderwindow){
+    SDL_DestroyRenderer(renderwindow->renderer);
     SDL_DestroyWindow(renderwindow->window);
+    
 }

@@ -2,6 +2,7 @@
 
 void entity(float x,float y,SDL_Texture* texture,Entity* entity)
 {
+    
     entity->x=x;
     entity->y=y;
     entity->currentFrame.x=0;
@@ -38,5 +39,7 @@ void entity_setTex(Entity* entity,SDL_Texture* tex){
 void entity_setCFrame(Entity* entity,SDL_Rect CFrame){
     entity->currentFrame.h=CFrame.h;
     entity->currentFrame.w=CFrame.w;
+    entity->currentFrame.x=CFrame.x;
+    entity->currentFrame.y=CFrame.y;
 
 }

@@ -4,6 +4,8 @@
 #include "renderwindow.h"
 #include "entity.h"
 #include <stdlib.h>
+#include "csts.h"
+#include "Character.h"
 
 int WinMain()
 {
@@ -17,37 +19,28 @@ int WinMain()
     fprintf(stderr, "Unable to initialize SDL_image: %s\n", IMG_GetError());
     return 1;
 }
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY,"2");
 
 
     RenderW window;
-    RenderWindow("test",854,480,&window);
+    RenderWindow("test",SCREEN_WIDTH,SCREEN_HEIGHT,&window);
     
     SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",&window);
     SDL_Texture* dirtTexture=loadtexture("assets/gfx/dirt.png",&window);
-    SDL_Texture* cloudTexture=loadtexture("assets/gfx/cloud.png",&window);
-
+    SDL_Texture* playerTexture=loadtexture("assets/gfx/run.png",&window);
     Entity platform0;
     Entity platform1;
-    Entity platform2;
-    int valx[4];
-    int valy[4];
-    for (int i = 0; i < 4; i++)
-    {
-        
-            int randomy = (rand() % (200 - 10 + 1)) + 10;
-            int randomx = (rand() % (790 - 10 + 1)) + 10;
-            valx[i]=randomx;
-            valy[i]=randomy;
+    Character player;
 
-    }
-    
 
     
     entity(0,300,grassTexture,&platform0);
     entity(0,332,dirtTexture,&platform1);
-    entity(100,100,cloudTexture,&platform2);
-
+    character(200,271,playerTexture,&player,10);
+    
+    
     int gameRunning=1;
+    int flip=0;
     SDL_Event event;   
     while(gameRunning){
         while (SDL_PollEvent(&event))
@@ -55,26 +48,31 @@ int WinMain()
             if(event.type==SDL_QUIT){
                 gameRunning =0;
             }
+            if(event.type==SDL_KEYDOWN){
+                
+                switch (event.key.keysym.sym)
+                {
+                case SDLK_RIGHT:
+                    flip=0;
+                    movecharacter(CgetSpeed(&player),0,&player);
+                    break;
+                case SDLK_LEFT:
+                    flip=1;
+                    movecharacter(-CgetSpeed(&player),0,&player);
+                    break;
+                default:
+                    break;
+                }
+            }
             
         }
             clear(&window);
-            for(int i=0;i<4;i++){
-                SDL_Rect temp;
-                        entity_setx(&platform2,valx[i]);
-            entity_sety(&platform2,valy[i]);
-
-
-            temp.h=63;
-            temp.w=107;
-            entity_setCFrame(&platform2,temp);
-
-            render(&platform2,&window);
-            }
+            render(&player.character,&window,flip);
             for (int x = 0; x < 32*27; x+=32)
             {
 
                 entity_setx(&platform0,x);
-                render(&platform0,&window);
+                render(&platform0,&window,0);
 
                 
                 
@@ -92,7 +90,7 @@ int WinMain()
             {
 
                 entity_setx(&platform1,x);
-                render(&platform1,&window);
+                render(&platform1,&window,0);
                 
                 
                 

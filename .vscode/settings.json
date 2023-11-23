@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "sdl.h": "c",
-        "sdl_image.h": "c"
+        "sdl_image.h": "c",
+        "csts.C": "cpp"
     }
 }
