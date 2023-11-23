@@ -15,7 +15,9 @@ void RenderWindow(const char* p_title,int p_w ,int p_h,RenderW* renderwindow ){
         printf("Window failed to init %s\n",SDL_GetError());
     }
     renderwindow->renderer=SDL_CreateRenderer(renderwindow->window,-1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    
+    SDL_SetRenderDrawColor(renderwindow->renderer,173,216,230,255);
+    clear(renderwindow);
+    display(renderwindow);
 
 
     
@@ -48,8 +50,8 @@ void render(Entity* p_entity,RenderW* renderwindow){
     SDL_Rect dst;
     dst.x=entity_getx(p_entity);
     dst.y=entity_gety(p_entity);
-    dst.h=32;
-    dst.w=32;
+    dst.h=entity_getCFrame(p_entity).h;
+    dst.w=entity_getCFrame(p_entity).w;
     SDL_RenderCopy(renderwindow->renderer,entity_getTex(p_entity),&src,&dst);
     
     

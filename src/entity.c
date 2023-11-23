@@ -36,6 +36,7 @@ void entity_setTex(Entity* entity,SDL_Texture* tex){
     entity->texture=tex;
 }
 void entity_setCFrame(Entity* entity,SDL_Rect CFrame){
-    entity->currentFrame=CFrame;
+    entity->currentFrame.h=CFrame.h;
+    entity->currentFrame.w=CFrame.w;
 
 }

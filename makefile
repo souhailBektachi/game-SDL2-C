@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -I src/include
+CFLAGS = -Wall -Wextra -std=c11 -I src/include -I src/headers
 LDFLAGS = -L src/lib -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2main
 
 TARGET = game
