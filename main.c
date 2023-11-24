@@ -28,14 +28,23 @@ int WinMain()
     SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",&window);
     SDL_Texture* dirtTexture=loadtexture("assets/gfx/dirt.png",&window);
     SDL_Texture* playerTexture=loadtexture("assets/gfx/run.png",&window);
+    SDL_Texture* maptexture=loadtexture("assets/gfx/map.png",&window);
     Entity platform0;
     Entity platform1;
     Character player;
+    Entity map;
 
 
     
     entity(0,300,grassTexture,&platform0);
     entity(0,332,dirtTexture,&platform1);
+    entity(10,10,maptexture,&map);
+    SDL_Rect temp;
+    temp.h=64;
+    temp.w=64;
+    temp.x=(48%23)*16;
+    temp.y=(48/23)*16;
+    entity_setCFrame(&map,temp);
     character(200,271,playerTexture,&player,10);
     
     
@@ -67,8 +76,9 @@ int WinMain()
             
         }
             clear(&window);
+            render(&map,&window,0);
             render(&player.character,&window,flip);
-            for (int x = 0; x < 32*27; x+=32)
+            for (int x = 0; x < 32*15; x+=32)
             {
 
                 entity_setx(&platform0,x);
