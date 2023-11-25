@@ -16,7 +16,7 @@ void RenderWindow(const char* p_title,int p_w ,int p_h,RenderW* renderwindow ){
     }
     renderwindow->renderer=SDL_CreateRenderer(renderwindow->window,-1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
-    SDL_SetRenderDrawColor(renderwindow->renderer,173,216,230,255);
+    SDL_SetRenderDrawColor(renderwindow->renderer,64,64,64,255);
     clear(renderwindow);
     display(renderwindow);
 

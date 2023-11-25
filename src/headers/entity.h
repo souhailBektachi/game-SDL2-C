@@ -18,4 +18,4 @@ SDL_Rect entity_getCFrame(Entity* entity);
 void entity_setx(Entity* entity,float x);
 void entity_sety(Entity* entity,float y);
 void entity_setTex(Entity* entity,SDL_Texture* tex);
-void entity_setCFrame(Entity* entity,SDL_Rect CFrame);
+void entity_setCFrame(Entity* entity,float h,float w,float x,float y);

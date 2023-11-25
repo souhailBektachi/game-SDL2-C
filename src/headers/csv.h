@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_LINE_SIZE 1024
+#include <csts.h>
 
 
+void parseCsv(const char* pathname,int mapkeys[]);

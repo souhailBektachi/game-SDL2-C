@@ -1,17 +1,21 @@
 #pragma once
 #include "entity.h"
 #include "csts.h"
-
+#include "csv.h"
+#include "renderwindow.h"
 
 
 typedef struct {
-    SDL_Texture* map;
+    Entity theMap;
+    SDL_Texture* maptex;
+    int mapKeys[1000];
     const char* csvFile;
-    int map[14400];
+    
 
 
 
 }Map;
 
-void map(SDL_Texture* map,const char* csvFile);
-void rendermap(Map* map);
+void map(SDL_Texture* maptex,const char* csvFile,Map* map);
+void createMap(Map* map);
+void renderMap(Map* map,RenderW* window);
