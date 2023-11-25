@@ -52,31 +52,57 @@ int WinMain()
     while(gameRunning){
         while (SDL_PollEvent(&event))
         {
+            const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
+            
             if(event.type==SDL_QUIT){
                 gameRunning =0;
             }
+            if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
+                entity_setTex(&player.character,playerTextureUP);
+                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player);
+                
+            }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
+                entity_setTex(&player.character,playerTextureUP);
+                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player);
+                
+            }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
+                entity_setTex(&player.character,playerTextureDown);
+                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player);
+                
+            }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
+                entity_setTex(&player.character,playerTextureDown);
+                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player);
+                
+            }else if(keyboardState[SDL_SCANCODE_DOWN]){
+                entity_setTex(&player.character,playerTextureDown);
+                movecharacter(0,CgetSpeed(&player),&player);
+                
+                
+            }else if(keyboardState[SDL_SCANCODE_UP]){
+                entity_setTex(&player.character,playerTextureUP);
+                movecharacter(0,-CgetSpeed(&player),&player);
+                
+                
+            }else if(keyboardState[SDL_SCANCODE_LEFT]){
+                entity_setTex(&player.character,playerTexture);
+                movecharacter(-CgetSpeed(&player),0,&player);
+                flip=1;
+                
+                
+            }else if(keyboardState[SDL_SCANCODE_RIGHT]){
+                entity_setTex(&player.character,playerTexture);
+                movecharacter(CgetSpeed(&player),0,&player);
+                flip=0;
+                
+                
+            }
+            
+
             if(event.type==SDL_KEYDOWN){
                 
                 switch (event.key.keysym.sym)
                 {
-                case SDLK_RIGHT:
-                    entity_setTex(&player.character,playerTexture);
-                    flip=0;
-                    movecharacter(CgetSpeed(&player),0,&player);
-                    break;
-                case SDLK_LEFT:
-                    entity_setTex(&player.character,playerTexture);
-                    flip=1;
-                    movecharacter(-CgetSpeed(&player),0,&player);
-                    break;
-                case SDLK_UP:
-                    entity_setTex(&player.character,playerTextureUP);
-                    movecharacter(0,-CgetSpeed(&player),&player);
-                    break;
-                case SDLK_DOWN:
-                    entity_setTex(&player.character,playerTextureDown);
-                    movecharacter(0,CgetSpeed(&player),&player);
-                    break;
+                
                 default:
                     break;
                 }
