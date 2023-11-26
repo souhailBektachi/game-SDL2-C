@@ -7,6 +7,7 @@
 
 typedef struct {
     Entity theMap;
+    Entity mapTiles[30][30];
     SDL_Texture* maptex;
     int mapKeys[1000];
     const char* csvFile;

@@ -31,18 +31,22 @@ void createMap(Map* map){
 }
 void renderMap(Map* map,RenderW* window,int textureHW){
     int key,x,y;
+
     int k=0;
     for (int i = 0; i < 30*16; i+=16)
     {
-        entity_sety(&map->theMap,i);
+        // entity_sety(&map->theMap,i);
         for(int j=0;j<30*16;j+=16){
-            entity_setx(&map->theMap,j);
+            // entity_setx(&map->theMap,j);
             key=map->mapKeys[k];
             k++;
             x=(key%textureHW)*16;
             y=(key/textureHW)*16;
-            entity_setCFrame(&map->theMap,16,16,x,y);
-            render(&map->theMap,window,0);
+            entity(j,i,map->maptex,&map->mapTiles[i/16][j/16]);
+            
+
+            entity_setCFrame(&map->mapTiles[i/16][j/16],16,16,x,y);
+            render(&map->mapTiles[i/16][j/16],window,0);
         }
     }
     

@@ -42,6 +42,8 @@ void clear(RenderW* renderwindow){
 }
 
 void render(Entity* p_entity,RenderW* renderwindow,int flip){
+    
+    
     SDL_Rect src;
     src.x=entity_getCFrame(p_entity).x;
     src.y=entity_getCFrame(p_entity).y;
@@ -57,6 +59,7 @@ void render(Entity* p_entity,RenderW* renderwindow,int flip){
     
     SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  isflipped);
     
+        
 
     }
     
@@ -68,7 +71,7 @@ void display(RenderW *renderwindow){
     
 
     SDL_RenderPresent(renderwindow->renderer);
-    SDL_Delay(30/1000);
+    
 
 }
 void cleanUp(RenderW* renderwindow){

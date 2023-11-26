@@ -146,7 +146,7 @@ int WinMain()
             
             
             display(&window);
-
+            SDL_Delay(30/1000);
         
 
     }
