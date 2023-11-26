@@ -39,7 +39,7 @@ Before running the game, make sure you have the following dependencies installed
 ![Screenshot 1](screenshots/screanshot.png)
 ## Development Environment
 
-- C Compiler: [Specify the compiler you are using, e.g., GCC](link-to-gcc)
+
 
 
 
