@@ -49,7 +49,9 @@ void entity_setCFrame(Entity* entity,float h,float w,float x,float y){
 
 }
 int entity_collision(const Entity* p_a,const Entity* p_b){
-        
+//     printf("Player: (%d, %d, %d, %d)\n", p_a->destFrame.x, p_a->destFrame.y, p_a->destFrame.w, p_a->destFrame.h);
+// printf("Obstacle: (%d, %d, %d, %d)\n", p_b->destFrame.x, p_b->destFrame.y, p_b->destFrame.w, p_b->destFrame.h);
+   
     return SDL_HasIntersection(&p_a->destFrame,&p_b->destFrame);
     
 }

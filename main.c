@@ -10,7 +10,10 @@
 
 int WinMain()
 {
-
+    const int FPS=60;
+    const int framdelay =1000/FPS;
+    Uint32 framesStart;
+    int frameTime;
 
     if (SDL_Init(SDL_INIT_VIDEO)>0)
     {
@@ -39,7 +42,6 @@ int WinMain()
     Map themap[2];
     const char* mapAssets[2]={"assets/maps/firstlevel.csv","assets/maps/secondlevel.csv"};
     SDL_Texture* maptexture[2]={loadtexture("assets/gfx/map.png",&window),loadtexture("assets/gfx/dungeontileset-extended.png",&window)};
-    int wall[100]={834,705};
 
     int mapTextureHW[2]={23,64};
 
@@ -62,7 +64,7 @@ int WinMain()
         SDL_Rect playersdest=player.character.destFrame;
         while (SDL_PollEvent(&event))
         {
-
+            framesStart=SDL_GetTicks();
             const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
             
 
@@ -146,7 +148,9 @@ int WinMain()
             
             
             display(&window);
-            SDL_Delay(30/1000);
+            frameTime=SDL_GetTicks()-framesStart;
+            if(framdelay > frameTime){
+            SDL_Delay(framdelay-frameTime);}
         
 
     }
