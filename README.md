@@ -37,7 +37,7 @@ Before running the game, make sure you have the following dependencies installed
     ```
 ## Screenshots
 ![Screenshot 1](screenshots/screanshot.png)
-## Development Environment
+
 
 
 
