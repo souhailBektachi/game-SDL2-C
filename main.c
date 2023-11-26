@@ -25,7 +25,7 @@ int WinMain()
 
 
     RenderW window;
-    RenderWindow("test",SCREEN_WIDTH,SCREEN_HEIGHT,&window);
+    RenderWindow("Game with no name",SCREEN_WIDTH,SCREEN_HEIGHT,&window);
     SDL_Texture* playerTextures[4]={loadtexture("assets/gfx/run.png",&window),loadtexture("assets/gfx/runUP.png",&window),loadtexture("assets/gfx/rundown.png",&window),loadtexture("assets/gfx/map.png",&window)};
     SDL_Texture* playerTexture=loadtexture("assets/gfx/run.png",&window);
     SDL_Texture* playerTextureUP=loadtexture("assets/gfx/runUP.png",&window);
