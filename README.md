@@ -35,11 +35,11 @@ Before running the game, make sure you have the following dependencies installed
     ```bash
     ./game.exe
     ```
-
+## Screenshots
+![Screenshot 1](screenshots/1.png)
 ## Development Environment
 
 - C Compiler: [Specify the compiler you are using, e.g., GCC](link-to-gcc)
-- SDL Version: [Specify the SDL version you are using](link-to-sdl-version)
 
 
 
