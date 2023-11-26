@@ -36,7 +36,7 @@ Before running the game, make sure you have the following dependencies installed
     ./game.exe
     ```
 ## Screenshots
-![Screenshot 1](screenshots/1.png)
+![Screenshot 1](screenshots/screanshot.png)
 ## Development Environment
 
 - C Compiler: [Specify the compiler you are using, e.g., GCC](link-to-gcc)
