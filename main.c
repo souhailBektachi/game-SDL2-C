@@ -26,28 +26,33 @@ int WinMain()
 
     RenderW window;
     RenderWindow("test",SCREEN_WIDTH,SCREEN_HEIGHT,&window);
-    
-    SDL_Texture* grassTexture=loadtexture("assets/gfx/ground_grass_1.png",&window);
-    SDL_Texture* dirtTexture=loadtexture("assets/gfx/dirt.png",&window);
+    SDL_Texture* playerTextures[4]={loadtexture("assets/gfx/run.png",&window),loadtexture("assets/gfx/runUP.png",&window),loadtexture("assets/gfx/rundown.png",&window),loadtexture("assets/gfx/map.png",&window)};
     SDL_Texture* playerTexture=loadtexture("assets/gfx/run.png",&window);
     SDL_Texture* playerTextureUP=loadtexture("assets/gfx/runUP.png",&window);
     SDL_Texture* playerTextureDown=loadtexture("assets/gfx/rundown.png",&window);
-    SDL_Texture* maptexture=loadtexture("assets/gfx/map.png",&window);
-    Entity platform0;
-    Entity platform1;
+    
     Character player;
 
-    Map themap;
-    map(maptexture,"assets/maps/firstlevel.csv",&themap);
-    createMap(&themap);
-    entity(0,300,grassTexture,&platform0);
-    entity(0,332,dirtTexture,&platform1);
+
+    Map themap[2];
+    const char* mapAssets[2]={"assets/maps/firstlevel.csv","assets/maps/secondlevel.csv"};
+    SDL_Texture* maptexture[2]={loadtexture("assets/gfx/map.png",&window),loadtexture("assets/gfx/dungeontileset-extended.png",&window)};
+
+    int mapTextureHW[2]={23,64};
+
+    for (int i = 0; i < 2; i++)
+    {
+        map(maptexture[i],mapAssets[i],&themap[i]);
+        createMap(&themap[i]);
+    }
+    
 
     character(200,271,playerTexture,&player,10);
     
     
     int gameRunning=1;
     int flip=0;
+    int mapindex=0;
     SDL_Event event;   
     while(gameRunning){
         while (SDL_PollEvent(&event))
@@ -102,7 +107,11 @@ int WinMain()
                 
                 switch (event.key.keysym.sym)
                 {
-                
+                case SDLK_v:
+                    
+
+                    mapindex=mapindex==0?1:0;
+
                 default:
                     break;
                 }
@@ -110,7 +119,7 @@ int WinMain()
             
         }
             clear(&window);
-            renderMap(&themap,&window);
+            renderMap(&themap[mapindex],&window,mapTextureHW[mapindex]);
             render(&player.character,&window,flip);
                 
             

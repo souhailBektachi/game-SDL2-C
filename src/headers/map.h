@@ -13,9 +13,8 @@ typedef struct {
     
 
 
-
 }Map;
 
 void map(SDL_Texture* maptex,const char* csvFile,Map* map);
 void createMap(Map* map);
-void renderMap(Map* map,RenderW* window);
+void renderMap(Map* map,RenderW* window,int textureHW);
