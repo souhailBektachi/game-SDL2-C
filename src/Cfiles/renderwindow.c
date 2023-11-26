@@ -53,11 +53,9 @@ void render(Entity* p_entity,RenderW* renderwindow,int flip){
     dst.y=entity_gety(p_entity);
     dst.h=entity_getCFrame(p_entity).h;
     dst.w=entity_getCFrame(p_entity).w;
-    if(flip){
-    SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  SDL_FLIP_HORIZONTAL);}else{
-        
-    SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  SDL_FLIP_NONE);
-
+    int isflipped=flip?SDL_FLIP_HORIZONTAL:SDL_FLIP_NONE;
+    
+    SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  isflipped);
     
 
     }
@@ -65,11 +63,13 @@ void render(Entity* p_entity,RenderW* renderwindow,int flip){
     
 
 
-}
+
 void display(RenderW *renderwindow){
     
 
     SDL_RenderPresent(renderwindow->renderer);
+    SDL_Delay(30/1000);
+
 }
 void cleanUp(RenderW* renderwindow){
     SDL_DestroyRenderer(renderwindow->renderer);

@@ -7,6 +7,7 @@ typedef struct
     Entity character;
     int speed;
     SDL_Texture* textures[4];
+    int coll;
 
 }Character;
 

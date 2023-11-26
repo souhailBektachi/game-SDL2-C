@@ -4,6 +4,7 @@
 #include <stdio.h>
 typedef struct 
 {
+    SDL_Rect destFrame;
     float x,y;
     SDL_Rect currentFrame;
     SDL_Texture* texture;
@@ -19,3 +20,4 @@ void entity_setx(Entity* entity,float x);
 void entity_sety(Entity* entity,float y);
 void entity_setTex(Entity* entity,SDL_Texture* tex);
 void entity_setCFrame(Entity* entity,float h,float w,float x,float y);
+int entity_collision(const Entity* p_a,const Entity* p_b);

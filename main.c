@@ -33,11 +33,13 @@ int WinMain()
     SDL_Texture* playerTextureUPLR=loadtexture("assets/gfx/runUpToLeft.png",&window);
     SDL_Texture* playerTextureDownLR=loadtexture("assets/gfx/runDownLeft.png",&window);
     Character player;
-
+    Character Player2;
+    character(200,200,playerTexture,&Player2,10);
 
     Map themap[2];
     const char* mapAssets[2]={"assets/maps/firstlevel.csv","assets/maps/secondlevel.csv"};
     SDL_Texture* maptexture[2]={loadtexture("assets/gfx/map.png",&window),loadtexture("assets/gfx/dungeontileset-extended.png",&window)};
+    int wall[100]={834,705};
 
     int mapTextureHW[2]={23,64};
 
@@ -54,12 +56,16 @@ int WinMain()
     int gameRunning=1;
     int flip=0;
     int mapindex=0;
+    
     SDL_Event event;   
     while(gameRunning){
+        SDL_Rect playersdest=player.character.destFrame;
         while (SDL_PollEvent(&event))
         {
+
             const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
             
+
             if(event.type==SDL_QUIT){
                 gameRunning =0;
             }
@@ -78,6 +84,7 @@ int WinMain()
                 flip=1;
                 movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player);
                 
+                
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=0;
@@ -93,20 +100,24 @@ int WinMain()
                 movecharacter(0,-CgetSpeed(&player),&player);
                 
                 
+            
             }else if(keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTexture);
                 movecharacter(-CgetSpeed(&player),0,&player);
                 flip=1;
                 
                 
-            }else if(keyboardState[SDL_SCANCODE_RIGHT]){
+            }else if(keyboardState[SDL_SCANCODE_RIGHT] ){
                 entity_setTex(&player.character,playerTexture);
                 movecharacter(CgetSpeed(&player),0,&player);
                 flip=0;
                 
                 
             }
-            
+            if(entity_collision(&player.character,&Player2.character)){
+                entity_setx(&player.character,playersdest.x);
+                entity_sety(&player.character,playersdest.y);
+            }
 
             if(event.type==SDL_KEYDOWN){
                 
@@ -123,14 +134,19 @@ int WinMain()
             }
             
         }
+        
+        
             clear(&window);
             renderMap(&themap[mapindex],&window,mapTextureHW[mapindex]);
             render(&player.character,&window,flip);
+            entity_setx(&Player2.character,150);
+            render(&Player2.character,&window,0);
                 
             
             
             
             display(&window);
+
         
 
     }

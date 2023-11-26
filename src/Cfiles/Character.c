@@ -3,7 +3,7 @@
 
 void character(float x,float y,SDL_Texture* texture,Character* character,int speed){
     entity(x,y,texture,&character->character);
-    
+    character->coll=0;
     character->speed=speed;
     character->textures[0]=texture;
 }
@@ -15,6 +15,11 @@ int CgetSpeed(Character* character){
 
 
 void movecharacter(int p_x,int p_y,Character* character){
+    
+
+    
+    
+    
      if (entity_getx(&character->character)+p_x < 0 || entity_getx(&character->character)+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w) {
         p_x = 0;
     } 
@@ -31,5 +36,5 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
         character->textures[i]=textures[i];
 
     }
-    
+
 }
