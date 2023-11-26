@@ -45,4 +45,3 @@ Before running the game, make sure you have the following dependencies installed
 
 
 
-Happy coding!
