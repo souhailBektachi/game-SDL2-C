@@ -26,11 +26,12 @@ int WinMain()
 
     RenderW window;
     RenderWindow("Game with no name",SCREEN_WIDTH,SCREEN_HEIGHT,&window);
-    SDL_Texture* playerTextures[4]={loadtexture("assets/gfx/run.png",&window),loadtexture("assets/gfx/runUP.png",&window),loadtexture("assets/gfx/rundown.png",&window),loadtexture("assets/gfx/map.png",&window)};
+    SDL_Texture* playerTextures[4]={loadtexture("assets/gfx/run.png",&window),loadtexture("assets/gfx/runUP.png",&window),loadtexture("assets/gfx/rundown.png",&window)};
     SDL_Texture* playerTexture=loadtexture("assets/gfx/run.png",&window);
     SDL_Texture* playerTextureUP=loadtexture("assets/gfx/runUP.png",&window);
     SDL_Texture* playerTextureDown=loadtexture("assets/gfx/rundown.png",&window);
-    
+    SDL_Texture* playerTextureUPLR=loadtexture("assets/gfx/runUpToLeft.png",&window);
+    SDL_Texture* playerTextureDownLR=loadtexture("assets/gfx/runDownLeft.png",&window);
     Character player;
 
 
@@ -63,19 +64,23 @@ int WinMain()
                 gameRunning =0;
             }
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
-                entity_setTex(&player.character,playerTextureUP);
+                entity_setTex(&player.character,playerTextureUPLR);
+                flip=1;
                 movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player);
                 
             }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
-                entity_setTex(&player.character,playerTextureUP);
+                entity_setTex(&player.character,playerTextureUPLR);
+                flip=0;
                 movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
-                entity_setTex(&player.character,playerTextureDown);
+                entity_setTex(&player.character,playerTextureDownLR);
+                flip=1;
                 movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
-                entity_setTex(&player.character,playerTextureDown);
+                entity_setTex(&player.character,playerTextureDownLR);
+                flip=0;
                 movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN]){
