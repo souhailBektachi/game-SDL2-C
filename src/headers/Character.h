@@ -2,6 +2,7 @@
 #include "entity.h"
 #include "csts.h"
 #include <stdio.h>
+
 typedef struct 
 {
     Entity character;

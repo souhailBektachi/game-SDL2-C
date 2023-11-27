@@ -128,7 +128,10 @@ int WinMain()
                 case SDLK_v:
                     
 
+
                     mapindex=mapindex==0?1:0;
+
+                    break;
 
                 default:
                     break;

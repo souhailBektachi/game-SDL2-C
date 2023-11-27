@@ -32,7 +32,7 @@ void createMap(Map* map){
 }
 void renderMap(Map* map,RenderW* window,int textureHW){
     int key,x,y;
-    int i=0;
+ 
     int k=0;
     for (int i = 0; i < 30*16; i+=16)
     {
@@ -43,13 +43,17 @@ void renderMap(Map* map,RenderW* window,int textureHW){
             y=(key/textureHW)*16;
             
             
-            
+            if(map!=NULL){
+
             entity(j,i,map->maptex,&map->mapTiles[i/16][j/16]);
             
 
+            
             entity_setCFrame(&map->mapTiles[i/16][j/16],16,16,x,y);
+            }
             render(&map->mapTiles[i/16][j/16],window,0);
         }
     }
     
 }
+
