@@ -6,6 +6,7 @@
 
 
 typedef struct {
+    int rendered;
     Entity theMap;
     Entity mapTiles[30][30];
     SDL_Texture* maptex;
@@ -19,3 +20,5 @@ typedef struct {
 void map(SDL_Texture* maptex,const char* csvFile,Map* map);
 void createMap(Map* map);
 void renderMap(Map* map,RenderW* window,int textureHW);
+int get_rendered(Map* map);
+void set_rendered(Map* map,int x);

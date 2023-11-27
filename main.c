@@ -128,7 +128,7 @@ int WinMain()
                 case SDLK_v:
                     
 
-
+                    set_rendered(&themap[mapindex],0);
                     mapindex=mapindex==0?1:0;
 
                     break;
