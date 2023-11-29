@@ -4,11 +4,16 @@
 #include "csv.h"
 #include "renderwindow.h"
 
+typedef struct {
+    Entity Tile;
+    char type;
 
+}mapE;
 typedef struct {
     int rendered;
     Entity theMap;
-    Entity mapTiles[30][30];
+    mapE mapTiles[30][30];
+
     SDL_Texture* maptex;
     int mapKeys[1000];
     const char* csvFile;

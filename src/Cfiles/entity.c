@@ -1,17 +1,17 @@
 #include "entity.h"
 
-void entity(float x,float y,SDL_Texture* texture,Entity* entity)
+void entity(float x,float y,SDL_Texture* texture,Entity* entity,float h,float w)
 {
  
     entity->destFrame.x=x;
     entity->destFrame.y=y;
-    entity->destFrame.h=16;
-    entity->destFrame.w=16;
+    entity->destFrame.h=h;
+    entity->destFrame.w=w;
     
     entity->currentFrame.x=0;
     entity->currentFrame.y=0;
-    entity->currentFrame.h=32;
-    entity->currentFrame.w=32;
+    entity->currentFrame.h=h;
+    entity->currentFrame.w=w;
     
     
     entity->texture=texture;
@@ -51,7 +51,11 @@ void entity_setCFrame(Entity* entity,float h,float w,float x,float y){
 int entity_collision(const Entity* p_a,const Entity* p_b){
 //     printf("Player: (%d, %d, %d, %d)\n", p_a->destFrame.x, p_a->destFrame.y, p_a->destFrame.w, p_a->destFrame.h);
 // printf("Obstacle: (%d, %d, %d, %d)\n", p_b->destFrame.x, p_b->destFrame.y, p_b->destFrame.w, p_b->destFrame.h);
+    
+    SDL_Rect Rect1={p_a->destFrame.x,p_a->destFrame.y,p_a->destFrame.w,p_a->destFrame.h};
+    SDL_Rect Rect2={p_b->destFrame.x,p_b->destFrame.y,p_b->destFrame.w,p_b->destFrame.h};
+    
+    return SDL_HasIntersection(&Rect1,&Rect2);
    
-    return SDL_HasIntersection(&p_a->destFrame,&p_b->destFrame);
     
 }

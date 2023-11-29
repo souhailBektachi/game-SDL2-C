@@ -11,7 +11,7 @@ typedef struct
 
 }Entity;
 
-void entity(float x,float y,SDL_Texture* texture,Entity* entity);
+void entity(float x,float y,SDL_Texture* texture,Entity* entity,float h,float w);
 float entity_getx(Entity* entity);
 float entity_gety(Entity* entity);
 SDL_Texture* entity_getTex(Entity* entity);

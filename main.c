@@ -8,9 +8,12 @@
 #include "Character.h"
 #include "map.h"
 
+
 int WinMain()
 {
-    const int FPS=60;
+                
+
+    const int FPS=30;
     const int framdelay =1000/FPS;
     Uint32 framesStart;
     int frameTime;
@@ -57,7 +60,7 @@ int WinMain()
     
     int gameRunning=1;
     int flip=0;
-    int mapindex=0;
+    int mapindex=1;
     
     SDL_Event event;   
     while(gameRunning){
@@ -116,10 +119,6 @@ int WinMain()
                 
                 
             }
-            if(entity_collision(&player.character,&Player2.character)){
-                entity_setx(&player.character,playersdest.x);
-                entity_sety(&player.character,playersdest.y);
-            }
 
             if(event.type==SDL_KEYDOWN){
                 
@@ -146,14 +145,21 @@ int WinMain()
             render(&player.character,&window,flip);
             entity_setx(&Player2.character,150);
             render(&Player2.character,&window,0);
-                
+            if(character_collision(&player,&themap[mapindex])){
+                printf("m");
+                entity_setx(&player.character,playersdest.x);
+                entity_sety(&player.character,playersdest.y);
+            }
             
             
             
             display(&window);
+            // printmap(&themap[mapindex]);
             frameTime=SDL_GetTicks()-framesStart;
-            if(framdelay > frameTime){
-            SDL_Delay(framdelay-frameTime);}
+            if(framdelay>frameTime){
+            SDL_Delay(framdelay-frameTime);
+           }
+            
         
 
     }

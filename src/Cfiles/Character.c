@@ -2,7 +2,7 @@
 
 
 void character(float x,float y,SDL_Texture* texture,Character* character,int speed){
-    entity(x,y,texture,&character->character);
+    entity(x,y,texture,&character->character,32,32);
     character->coll=0;
     character->speed=speed;
     character->textures[0]=texture;
@@ -37,4 +37,22 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 
     }
 
+}
+
+int character_collision(const Character* p_a,const Map* p_b){
+   int C_x=p_a->character.destFrame.x;
+   int C_y=p_a->character.destFrame.y;
+   int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
+   
+   
+    
+    
+   
+            if('W'==p_b->mapTiles[C_y/16][C_x/16].type){
+                
+           return entity_collision(&p_a->character,&p_b->mapTiles[C_y/16][C_x/16].Tile);}else{
+            return 0;
+           }
+       
+   
 }
