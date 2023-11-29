@@ -14,22 +14,29 @@ int CgetSpeed(Character* character){
 
 
 
-void movecharacter(int p_x,int p_y,Character* character){
+void movecharacter(int p_x,int p_y,Character* character,Map* p_Map){
     
-
+    int tempx=entity_getx(&character->character);
+    int tempy=entity_gety(&character->character);
     
     
     
-     if (entity_getx(&character->character)+p_x < 0 || entity_getx(&character->character)+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w) {
+     if (entity_getx(&character->character)+p_x < 0 || entity_getx(&character->character)+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
         p_x = 0;
     } 
-     if (entity_gety(&character->character)+p_y < 0 || entity_gety(&character->character)+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16) {
+     if (entity_gety(&character->character)+p_y < 0 || entity_gety(&character->character)+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
         p_y = 0;
     }
     entity_setx(&character->character,entity_getx(&character->character)+p_x);
     entity_sety(&character->character,entity_gety(&character->character)+p_y);
+        int coll=character_collision(character,p_Map);
+        if(coll){
+            entity_setx(&character->character,tempx);
+            entity_sety(&character->character,tempy);
+        }
+    }
+    
 
-}
 void addTextuers(SDL_Texture* textures[],Character* character,int size){
     for (int i = 0; i < size; i++)
     {
@@ -42,7 +49,7 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 int character_collision(const Character* p_a,const Map* p_b){
    int C_x=p_a->character.destFrame.x;
    int C_y=p_a->character.destFrame.y;
-   int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
+//    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
    
    
     

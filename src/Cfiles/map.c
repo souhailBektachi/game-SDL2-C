@@ -62,13 +62,14 @@ void renderMap(Map* map,RenderW* window,int textureHW){
                      map->mapTiles[i/16][j/16].type='N';
                      continue;
                 }
-
+            
             }
+
             
             render(&map->mapTiles[i/16][j/16].Tile,window,0);
-        
     }
-}
+    
+}   
     set_rendered(map,1);
     
 

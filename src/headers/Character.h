@@ -13,7 +13,7 @@ typedef struct
 
 }Character;
 
-void movecharacter(int p_x,int p_y,Character* character);
+void movecharacter(int p_x,int p_y,Character* character,Map* p_Map);
 
 void character(float x,float y,SDL_Texture* texture,Character* character,int speed);
 int CgetSpeed(Character* character);

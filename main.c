@@ -32,7 +32,7 @@ int WinMain()
 
     RenderW window;
     RenderWindow("Game with no name",SCREEN_WIDTH,SCREEN_HEIGHT,&window);
-    SDL_Texture* playerTextures[4]={loadtexture("assets/gfx/run.png",&window),loadtexture("assets/gfx/runUP.png",&window),loadtexture("assets/gfx/rundown.png",&window)};
+    // SDL_Texture* playerTextures[4]={loadtexture("assets/gfx/run.png",&window),loadtexture("assets/gfx/runUP.png",&window),loadtexture("assets/gfx/rundown.png",&window)};
     SDL_Texture* playerTexture=loadtexture("assets/gfx/run.png",&window);
     SDL_Texture* playerTextureUP=loadtexture("assets/gfx/runUP.png",&window);
     SDL_Texture* playerTextureDown=loadtexture("assets/gfx/rundown.png",&window);
@@ -64,7 +64,6 @@ int WinMain()
     
     SDL_Event event;   
     while(gameRunning){
-        SDL_Rect playersdest=player.character.destFrame;
         while (SDL_PollEvent(&event))
         {
             framesStart=SDL_GetTicks();
@@ -77,44 +76,44 @@ int WinMain()
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player);
+                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player);
+                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player);
+                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player);
+                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN]){
                 entity_setTex(&player.character,playerTextureDown);
-                movecharacter(0,CgetSpeed(&player),&player);
+                movecharacter(0,CgetSpeed(&player),&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_UP]){
                 entity_setTex(&player.character,playerTextureUP);
-                movecharacter(0,-CgetSpeed(&player),&player);
+                movecharacter(0,-CgetSpeed(&player),&player,&themap[mapindex]);
                 
                 
             
             }else if(keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(-CgetSpeed(&player),0,&player);
+                movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex]);
                 flip=1;
                 
                 
             }else if(keyboardState[SDL_SCANCODE_RIGHT] ){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(CgetSpeed(&player),0,&player);
+                movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex]);
                 flip=0;
                 
                 
@@ -145,12 +144,7 @@ int WinMain()
             render(&player.character,&window,flip);
             entity_setx(&Player2.character,150);
             render(&Player2.character,&window,0);
-            if(character_collision(&player,&themap[mapindex])){
-                printf("m");
-                entity_setx(&player.character,playersdest.x);
-                entity_sety(&player.character,playersdest.y);
-            }
-            
+           
             
             
             display(&window);
