@@ -1,5 +1,5 @@
 #include "map.h"
-    int wall[100]={834,705,706,707,644,645,835};
+    int wall[100]={834,705,706,707,644,645,835,834,196,132,66,66,130,963,963,963,963,66,66,130,963,963,963,963,66,66,130,963,963,963,963,835};
 
 void map(SDL_Texture* maptex, const char* csvFile,Map* map){
     map->csvFile=csvFile;
@@ -67,6 +67,7 @@ void renderMap(Map* map,RenderW* window,int textureHW){
 
             
             render(&map->mapTiles[i/16][j/16].Tile,window,0);
+
     }
     
 }   

@@ -14,22 +14,23 @@ int CgetSpeed(Character* character){
 
 
 
-void movecharacter(int p_x,int p_y,Character* character,Map* p_Map){
+void movecharacter(vector2d p_vec,Character* character,Map* p_Map,char pos){
     
     int tempx=entity_getx(&character->character);
     int tempy=entity_gety(&character->character);
+
     
     
-    
-     if (entity_getx(&character->character)+p_x < 0 || entity_getx(&character->character)+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
-        p_x = 0;
+     if (entity_getx(&character->character)+p_vec.x < 0 || entity_getx(&character->character)+p_vec.x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
+        p_vec.x = 0;
     } 
-     if (entity_gety(&character->character)+p_y < 0 || entity_gety(&character->character)+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
-        p_y = 0;
+     if (entity_gety(&character->character)+p_vec.y < 0 || entity_gety(&character->character)+p_vec.y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
+        p_vec.y = 0;
     }
-    entity_setx(&character->character,entity_getx(&character->character)+p_x);
-    entity_sety(&character->character,entity_gety(&character->character)+p_y);
-        int coll=character_collision(character,p_Map);
+    entity_setx(&character->character,entity_getx(&character->character)+ p_vec.x);
+    entity_sety(&character->character,entity_gety(&character->character)+p_vec.y);
+        
+        int coll=character_collision(character,p_Map,pos);
         if(coll){
             entity_setx(&character->character,tempx);
             entity_sety(&character->character,tempy);
@@ -46,9 +47,9 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 
 }
 
-int character_collision(const Character* p_a,const Map* p_b){
-   int C_x=p_a->character.destFrame.x;
-   int C_y=p_a->character.destFrame.y;
+int character_collision(const Character* p_a,const Map* p_b,char pos){
+   int C_x=p_a->character.destFrame.x+8;
+   int C_y=p_a->character.destFrame.y+8;
 //    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
    
    
@@ -57,9 +58,11 @@ int character_collision(const Character* p_a,const Map* p_b){
    
             if('W'==p_b->mapTiles[C_y/16][C_x/16].type){
                 
-           return entity_collision(&p_a->character,&p_b->mapTiles[C_y/16][C_x/16].Tile);}else{
+           return 1;}else{
             return 0;
            }
        
    
 }
+
+

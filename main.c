@@ -76,44 +76,44 @@ int WinMain()
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex],'A');
                 
             }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex],'B');
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex],'C');
                 
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex],'D');
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN]){
                 entity_setTex(&player.character,playerTextureDown);
-                movecharacter(0,CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(0,CgetSpeed(&player),&player,&themap[mapindex],'E');
                 
                 
             }else if(keyboardState[SDL_SCANCODE_UP]){
                 entity_setTex(&player.character,playerTextureUP);
-                movecharacter(0,-CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(0,-CgetSpeed(&player),&player,&themap[mapindex],'F');
                 
                 
             
             }else if(keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex]);
+                movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex],'G');
                 flip=1;
                 
                 
             }else if(keyboardState[SDL_SCANCODE_RIGHT] ){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex]);
+                movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex],'H');
                 flip=0;
                 
                 
@@ -138,13 +138,13 @@ int WinMain()
             
         }
         
-        
+
             clear(&window);
             renderMap(&themap[mapindex],&window,mapTextureHW[mapindex]);
             render(&player.character,&window,flip);
             entity_setx(&Player2.character,150);
             render(&Player2.character,&window,0);
-           
+            
             
             
             display(&window);
