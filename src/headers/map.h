@@ -9,7 +9,11 @@ typedef struct {
     char type;
 
 }mapE;
-typedef struct {
+typedef struct{
+    int* keys;
+    char type;
+}mapwall;
+typedef struct  {
     int rendered;
     Entity theMap;
     mapE mapTiles[30][30];
@@ -17,12 +21,13 @@ typedef struct {
     SDL_Texture* maptex;
     int mapKeys[1000];
     const char* csvFile;
+    mapwall walls[8];
     
 
 
 }Map;
 
-void map(SDL_Texture* maptex,const char* csvFile,Map* map);
+void map(SDL_Texture* maptex,const char* csvFile,Map* map,mapwall* walls);
 void createMap(Map* map);
 void renderMap(Map* map,RenderW* window,int textureHW);
 int get_rendered(Map* map);

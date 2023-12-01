@@ -1,12 +1,14 @@
 #include "map.h"
-    int wall[100]={834,705,706,707,644,645,835,834,196,132,66,66,130,963,963,963,963,66,66,130,963,963,963,963,66,66,130,963,963,963,963,835};
-
-void map(SDL_Texture* maptex, const char* csvFile,Map* map){
+    
+void map(SDL_Texture* maptex, const char* csvFile,Map* map,mapwall* walls){
     map->csvFile=csvFile;
     map->maptex=maptex;
     
     entity(0,0,map->maptex,&map->theMap,16,16);
     map->rendered=0;
+    
+    map->walls[0].keys=walls->keys;
+    map->walls[0].type=walls->type;
     
     
 }
@@ -53,10 +55,10 @@ void renderMap(Map* map,RenderW* window,int textureHW){
             entity_setCFrame(&map->mapTiles[i/16][j/16].Tile,16,16,x,y);
             
             }
-                 for (int w = 0; w <7; w++)
+                 for (int w = 0; w <1; w++)
             {
-                if(wall[w]==key){
-                    map->mapTiles[i/16][j/16].type='W';
+                if(map->walls->keys[w]==key){
+                    map->mapTiles[i/16][j/16].type=map->walls[0].type;
                     break;
                 }else{
                      map->mapTiles[i/16][j/16].type='N';

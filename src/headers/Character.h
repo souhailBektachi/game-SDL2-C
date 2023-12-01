@@ -14,7 +14,7 @@ typedef struct
 
 }Character;
 
-void movecharacter(vector2d p_vec,Character* character,Map* p_Map,char pos);
+void movecharacter(float x,float y,Character* character,Map* p_Map,char pos);
 
 void character(float x,float y,SDL_Texture* texture,Character* character,int speed);
 int CgetSpeed(Character* character);

@@ -14,21 +14,21 @@ int CgetSpeed(Character* character){
 
 
 
-void movecharacter(vector2d p_vec,Character* character,Map* p_Map,char pos){
+void movecharacter(float p_x,float p_y,Character* character,Map* p_Map,char pos){
     
     int tempx=entity_getx(&character->character);
     int tempy=entity_gety(&character->character);
 
     
     
-     if (entity_getx(&character->character)+p_vec.x < 0 || entity_getx(&character->character)+p_vec.x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
-        p_vec.x = 0;
+     if (entity_getx(&character->character)+p_x < 0 || entity_getx(&character->character)+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
+        p_x = 0;
     } 
-     if (entity_gety(&character->character)+p_vec.y < 0 || entity_gety(&character->character)+p_vec.y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
-        p_vec.y = 0;
+     if (entity_gety(&character->character)+p_y < 0 || entity_gety(&character->character)+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
+        p_y = 0;
     }
-    entity_setx(&character->character,entity_getx(&character->character)+ p_vec.x);
-    entity_sety(&character->character,entity_gety(&character->character)+p_vec.y);
+    entity_setx(&character->character,entity_getx(&character->character)+ p_x);
+    entity_sety(&character->character,entity_gety(&character->character)+p_y);
         
         int coll=character_collision(character,p_Map,pos);
         if(coll){

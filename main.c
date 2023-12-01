@@ -47,10 +47,15 @@ int WinMain()
     SDL_Texture* maptexture[2]={loadtexture("assets/gfx/map.png",&window),loadtexture("assets/gfx/dungeontileset-extended.png",&window)};
 
     int mapTextureHW[2]={23,64};
+    mapwall walls;
+    walls.type='L';
+    walls.keys=(int*)malloc(sizeof(int));
+    walls.keys[0]=705;
+
 
     for (int i = 0; i < 2; i++)
     {
-        map(maptexture[i],mapAssets[i],&themap[i]);
+        map(maptexture[i],mapAssets[i],&themap[i],&walls);
         createMap(&themap[i]);
     }
     
@@ -68,6 +73,7 @@ int WinMain()
         {
             framesStart=SDL_GetTicks();
             const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
+
             
 
             if(event.type==SDL_QUIT){
