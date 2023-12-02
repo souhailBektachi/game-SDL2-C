@@ -4,7 +4,6 @@
 
 typedef struct vector2d 
 {
-    float srcX,srcY;
     float x,y;
 }vector2d;
 

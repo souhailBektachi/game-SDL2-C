@@ -2,8 +2,6 @@
 
 
 void vector(vector2d* v,int x,int y){
-    v->srcX=x;
-    v->srcY=y;
     v->x=x;
     v->y=y;
 }

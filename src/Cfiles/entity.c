@@ -18,11 +18,16 @@ void entity(float x,float y,SDL_Texture* texture,Entity* entity,float h,float w)
 
 
 }
-float entity_getx(Entity* entity){
-    return entity->destFrame.x;
+
+vector2d getpos(Entity* entity){
+    vector2d tempvect;
+    vector(&tempvect,entity->destFrame.x,entity->destFrame.y);
+    return tempvect;
+    
 }
-float entity_gety(Entity* entity){
-    return entity->destFrame.y;
+void entity_setpos(Entity* entity,vector2d pos){
+    entity->destFrame.x=pos.x;
+    entity->destFrame.x=pos.y;
 }
 SDL_Texture* entity_getTex(Entity* entity){
     return entity->texture;
@@ -30,14 +35,7 @@ SDL_Texture* entity_getTex(Entity* entity){
 SDL_Rect entity_getCFrame(Entity* entity){
     return entity->currentFrame;
 }
-void entity_setx(Entity* entity,float x){
-    entity->destFrame.x=x;
-    
-}
-void entity_sety(Entity* entity,float y){
-    entity->destFrame.y=y;
-   
-}
+
 void entity_setTex(Entity* entity,SDL_Texture* tex){
     entity->texture=tex;
 }
