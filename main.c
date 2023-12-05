@@ -45,17 +45,14 @@ int WinMain()
     Map themap[2];
     const char* mapAssets[2]={"assets/maps/firstlevel.csv","assets/maps/secondlevel.csv"};
     SDL_Texture* maptexture[2]={loadtexture("assets/gfx/map.png",&window),loadtexture("assets/gfx/dungeontileset-extended.png",&window)};
-
+    const char* mapWalls[2]={"assets/maps/secondlevelwalls.csv","assets/maps/secondlevelwalls.csv"};
     int mapTextureHW[2]={23,64};
-    mapwall walls;
-    walls.type='L';
-    walls.keys=(int*)malloc(sizeof(int));
-    walls.keys[0]=705;
+
 
 
     for (int i = 0; i < 2; i++)
     {
-        map(maptexture[i],mapAssets[i],&themap[i],&walls);
+        map(maptexture[i],mapAssets[i],&themap[i],mapWalls[i]);
         createMap(&themap[i]);
     }
     
@@ -82,46 +79,46 @@ int WinMain()
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex],'A');
+                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex],'B');
+                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex],'C');
+                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex],'D');
+                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN]){
                 entity_setTex(&player.character,playerTextureDown);
-                movecharacter(0,CgetSpeed(&player),&player,&themap[mapindex],'E');
+                movecharacter(0,CgetSpeed(&player),&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_UP]){
                 entity_setTex(&player.character,playerTextureUP);
-                movecharacter(0,-CgetSpeed(&player),&player,&themap[mapindex],'F');
+                movecharacter(0,-CgetSpeed(&player),&player,&themap[mapindex]);
                 
                 
             
             }else if(keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex],'G');
+                movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex]);
                 flip=1;
                 
                 
             }else if(keyboardState[SDL_SCANCODE_RIGHT] ){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex],'H');
+                movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex]);
                 flip=0;
-                
+            
                 
             }
 
@@ -148,7 +145,7 @@ int WinMain()
             clear(&window);
             renderMap(&themap[mapindex],&window,mapTextureHW[mapindex]);
             render(&player.character,&window,flip);
-            entity_setx(&Player2.character,150);
+            entity_setpos(&Player2.character,150,entity_getpos(&Player2.character).y);
             render(&Player2.character,&window,0);
             
             

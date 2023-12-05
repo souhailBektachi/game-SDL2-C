@@ -14,27 +14,24 @@ int CgetSpeed(Character* character){
 
 
 
-void movecharacter(float p_x,float p_y,Character* character,Map* p_Map,char pos){
+void movecharacter(float p_x,float p_y,Character* character,Map* p_Map){
     
-    int tempx=entity_getx(&character->character);
-    int tempy=entity_gety(&character->character);
+    vector2d temppos=entity_getpos(&character->character);
 
     
     
-     if (entity_getx(&character->character)+p_x < 0 || entity_getx(&character->character)+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
+     if (temppos.x+p_x < 0 || temppos.x+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
         p_x = 0;
     } 
-     if (entity_gety(&character->character)+p_y < 0 || entity_gety(&character->character)+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
+     if (temppos.y+p_y < 0 || temppos.y+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
         p_y = 0;
     }
-    entity_setx(&character->character,entity_getx(&character->character)+ p_x);
-    entity_sety(&character->character,entity_gety(&character->character)+p_y);
+    
+   
+    entity_setpos(&character->character,temppos.x+ p_x,temppos.y+p_y);
+    character_collision(character ,p_Map);
         
-        int coll=character_collision(character,p_Map,pos);
-        if(coll){
-            entity_setx(&character->character,tempx);
-            entity_sety(&character->character,tempy);
-        }
+       
     }
     
 
@@ -47,18 +44,25 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 
 }
 
-int character_collision(const Character* p_a,const Map* p_b,char pos){
-   int C_x=p_a->character.destFrame.x+8;
-   int C_y=p_a->character.destFrame.y+8;
+int character_collision(const Character* p_a,const Map* p_b){
+   int C_x=p_a->character.pos.x+16;
+   int C_y=p_a->character.pos.y+16;
+   mapE Tile = p_b->mapTiles[C_y/16][C_x/16];
+   printf("%d %d\n",C_x,Tile.key);
+   
+   char type =getType(&p_b->walls,Tile.key>0?Tile.key:0);
+   vector2d tempvect=p_a->character.pos;
 //    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
    
-   
     
     
-   
-            if('W'==p_b->mapTiles[C_y/16][C_x/16].type){
+            if(type !='\0'){
                 
-           return 1;}else{
+                tempvect=entity_collision(p_a->character.currentFrame,Tile.Tile.currentFrame,p_a->character.pos,Tile.Tile.pos,type);
+                vector(&tempvect,tempvect.x,tempvect.y);
+                entity_setpos(&p_a->character,tempvect.x,tempvect.y);
+                return 1;
+         }else{
             return 0;
            }
        

@@ -4,6 +4,7 @@
 extern const int SCREEN_HEIGHT;
 extern const int SCREEN_WIDTH;
 extern const int MAX_LINE_SIZE;
-
+extern const char WALLS_TYPES[8];
+#define HASH_SIZE 1000
 
 #endif  

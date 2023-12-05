@@ -6,6 +6,7 @@ void vector(vector2d* v,int x,int y){
     v->y=y;
 }
 
+
 vector2d addVec(vector2d p_a,vector2d p_b){
     vector2d res;
     res.x=p_a.x+p_b.x;

@@ -51,8 +51,8 @@ void render(Entity* p_entity,RenderW* renderwindow,int flip){
     src.w=entity_getCFrame(p_entity).w;
     
     SDL_Rect dst;
-    dst.x=entity_getx(p_entity);
-    dst.y=entity_gety(p_entity);
+    dst.x=p_entity->pos.x;
+    dst.y=p_entity->pos.y;
     dst.h=entity_getCFrame(p_entity).h;
     dst.w=entity_getCFrame(p_entity).w;
     int isflipped=flip?SDL_FLIP_HORIZONTAL:SDL_FLIP_NONE;

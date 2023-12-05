@@ -3,10 +3,10 @@
 void entity(float x,float y,SDL_Texture* texture,Entity* entity,float h,float w)
 {
  
-    entity->destFrame.x=x;
-    entity->destFrame.y=y;
-    entity->destFrame.h=h;
-    entity->destFrame.w=w;
+    
+    entity->pos.x=x;
+    entity->pos.y=y;
+   
     
     entity->currentFrame.x=0;
     entity->currentFrame.y=0;
@@ -19,15 +19,13 @@ void entity(float x,float y,SDL_Texture* texture,Entity* entity,float h,float w)
 
 }
 
-vector2d getpos(Entity* entity){
-    vector2d tempvect;
-    vector(&tempvect,entity->destFrame.x,entity->destFrame.y);
-    return tempvect;
+vector2d entity_getpos(Entity* entity){
+    return entity->pos;
     
 }
-void entity_setpos(Entity* entity,vector2d pos){
-    entity->destFrame.x=pos.x;
-    entity->destFrame.x=pos.y;
+void entity_setpos(Entity* entity,float x,float y){
+    entity->pos.x=x;
+    entity->pos.y=y;
 }
 SDL_Texture* entity_getTex(Entity* entity){
     return entity->texture;
@@ -46,7 +44,63 @@ void entity_setCFrame(Entity* entity,float h,float w,float x,float y){
     entity->currentFrame.y=y;
 
 }
-// int entity_collision(const Entity* p_a,const Entity* p_b,char position){
+
+
+vector2d entity_collision(const SDL_Rect p_a,SDL_Rect p_b,vector2d p_aPos,vector2d p_bPos,char type){
+    
+    vector2d p_aVect ;
+    vector2d p_bVect;
+    vector(&p_aVect,p_aPos.x,p_aPos.y);
+    vector(&p_bVect,p_bPos.x,p_bPos.y);
+    printf("%c\n",type);
+    switch (type)
+    {
+    case 'R':
+        if (p_aVect.x < p_bVect.x +p_b.w/4)
+        {
+            vector(&p_aVect,p_bVect.x+p_b.w/4,p_aVect.y);
+
+        }
+        
+        break;
+    case 'L':
+        if(p_aVect.x+p_a.w > p_bVect.x+(3*p_b.w/4)){
+            
+            vector(&p_aVect,p_bVect.x+(3*p_b.w/4)-p_a.w,p_aVect.y);
+        }
+        break;
+    case 'U':
+        if(p_aVect.y > p_bVect.y+p_b.h/2){
+            vector(&p_aVect,p_aVect.x,p_aVect.y+p_b.h/2);
+        }
+        break;
+    case 'B':
+        if(p_aVect.y<p_bVect.y+p_b.h/2){
+            vector(&p_aVect,p_aVect.x,p_aVect.y+p_b.h/2);
+        }
+        break;
+    case 'u':
+        
+        break;
+    case 'b':
+        
+        break;
+    case 'c':
+        
+        break;
+    case 'v':
+        
+        break;
+    
+    default:
+        break;
+    }
+    return p_aVect;
+
+
+}
+
+// int entity_cllision(const Entity* p_a,const Entity* p_b,char position){
 // //     printf("Player: (%d, %d, %d, %d)\n", p_a->destFrame.x, p_a->destFrame.y, p_a->destFrame.w, p_a->destFrame.h);
 // // printf("Obstacle: (%d, %d, %d, %d)\n", p_b->destFrame.x, p_b->destFrame.y, p_b->destFrame.w, p_b->destFrame.h);
 //     SDL_Rect Rect1={p_a->destFrame.x+8,p_a->destFrame.y+8,p_b->destFrame.w,p_b->destFrame.h};
