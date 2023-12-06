@@ -48,7 +48,6 @@ int character_collision(const Character* p_a,const Map* p_b){
    int C_x=p_a->character.pos.x+16;
    int C_y=p_a->character.pos.y+16;
    mapE Tile = p_b->mapTiles[C_y/16][C_x/16];
-   printf("%d %d\n",C_x,Tile.key);
    
    char type =getType(&p_b->walls,Tile.key>0?Tile.key:0);
    vector2d tempvect=p_a->character.pos;

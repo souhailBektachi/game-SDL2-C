@@ -52,44 +52,56 @@ vector2d entity_collision(const SDL_Rect p_a,SDL_Rect p_b,vector2d p_aPos,vector
     vector2d p_bVect;
     vector(&p_aVect,p_aPos.x,p_aPos.y);
     vector(&p_bVect,p_bPos.x,p_bPos.y);
-    printf("%c\n",type);
     switch (type)
     {
-    case 'R':
-        if (p_aVect.x < p_bVect.x +p_b.w/4)
+    case 'L':
+        if (p_aVect.x < p_bVect.x +p_b.w/10)
         {
-            vector(&p_aVect,p_bVect.x+p_b.w/4,p_aVect.y);
+            vector(&p_aVect,p_bVect.x+p_b.w/10,p_aVect.y);
 
         }
         
         break;
-    case 'L':
-        if(p_aVect.x+p_a.w > p_bVect.x+(3*p_b.w/4)){
+    case 'R':
+        if(p_aVect.x+p_a.w > p_bVect.x+(9*p_b.w/10)){
             
-            vector(&p_aVect,p_bVect.x+(3*p_b.w/4)-p_a.w,p_aVect.y);
+            vector(&p_aVect,p_bVect.x+(9*p_b.w/10)-p_a.w,p_aVect.y);
         }
         break;
     case 'U':
-        if(p_aVect.y > p_bVect.y+p_b.h/2){
-            vector(&p_aVect,p_aVect.x,p_aVect.y+p_b.h/2);
+        if(p_aVect.y < p_bVect.y +p_b.h/10){
+            vector(&p_aVect,p_aVect.x,p_bVect.y+p_b.h/10);
         }
         break;
     case 'B':
-        if(p_aVect.y<p_bVect.y+p_b.h/2){
-            vector(&p_aVect,p_aVect.x,p_aVect.y+p_b.h/2);
+        if(p_aVect.y+p_a.h > p_bVect.y+(9*p_b.h/10)){
+            vector(&p_aVect,p_aVect.x,p_bVect.y+(9*p_b.h/10)-p_a.h);
         }
         break;
     case 'u':
-        
+        if(p_aVect.y < p_bVect.y +p_b.h/10 && p_aVect.x < p_bVect.x +p_b.w/10){
+            vector(&p_aVect,p_bVect.x+p_b.w/10,p_bVect.y+p_b.h/10);
+
+        }
         break;
     case 'b':
-        
+        if(p_aVect.y+p_a.h > p_bVect.y+(9*p_b.h/10) && p_aVect.x < p_bVect.x +p_b.w/10){
+            vector(&p_aVect,p_bVect.x+p_b.w/10,p_bVect.y+(9*p_b.h/10)-p_a.h);
+
+        }
         break;
     case 'c':
-        
+        if(p_aVect.y < p_bVect.y +p_b.h/10 && p_aVect.x+p_a.w > p_bVect.x+(9*p_b.w/10)){
+            vector(&p_aVect,p_bVect.x+(9*p_b.w/10)-p_a.w,p_bVect.y+p_b.h/10);
+
+
+        }
         break;
     case 'v':
-        
+        if(p_aVect.y+p_a.h > p_bVect.y+(9*p_b.h/10) && p_aVect.x+p_a.w > p_bVect.x+(9*p_b.w/10)){
+            vector(&p_aVect,p_bVect.x+(9*p_b.w/10)-p_a.w,p_bVect.y+(9*p_b.h/10)-p_a.h);
+
+        }
         break;
     
     default:
