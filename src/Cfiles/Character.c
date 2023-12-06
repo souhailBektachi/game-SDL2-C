@@ -44,7 +44,7 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 
 }
 
-int character_collision(const Character* p_a,const Map* p_b){
+void character_collision(const Character* p_a,const Map* p_b){
    int C_x=p_a->character.pos.x+16;
    int C_y=p_a->character.pos.y+16;
    mapE Tile = p_b->mapTiles[C_y/16][C_x/16];
@@ -60,10 +60,8 @@ int character_collision(const Character* p_a,const Map* p_b){
                 tempvect=entity_collision(p_a->character.currentFrame,Tile.Tile.currentFrame,p_a->character.pos,Tile.Tile.pos,type);
                 vector(&tempvect,tempvect.x,tempvect.y);
                 entity_setpos(&p_a->character,tempvect.x,tempvect.y);
-                return 1;
-         }else{
-            return 0;
-           }
+               
+         }
        
    
 }
