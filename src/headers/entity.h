@@ -22,6 +22,3 @@ void entity_setpos(Entity* entity,float x,float y);
 void entity_setTex(Entity* entity,SDL_Texture* tex);
 void entity_setCFrame(Entity* entity,float h,float w,float x,float y);
 vector2d entity_collision(const SDL_Rect p_a,SDL_Rect p_b,vector2d p_aPos,vector2d p_bPos,char type);
-void changeH(SDL_Rect* a);
-void changeW(SDL_Rect* a);
-void changeHW(SDL_Rect* a);

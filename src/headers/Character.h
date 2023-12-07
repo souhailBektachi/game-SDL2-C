@@ -5,6 +5,7 @@
 #include "map.h"
 #include "string.h"
 #include "vector2d.h"
+#include "math.h"
 typedef struct 
 {
     Entity character;

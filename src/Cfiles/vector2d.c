@@ -28,3 +28,6 @@ vector2d multiplyBy(vector2d p_a,float x){
     return res;
 
 }
+// vector2d rotateVector(vector2d* p_a,int angle){
+//     p_a.x=cos(angle+
+// }

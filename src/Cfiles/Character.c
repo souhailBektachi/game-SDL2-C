@@ -17,8 +17,9 @@ int CgetSpeed(Character* character){
 void movecharacter(float p_x,float p_y,Character* character,Map* p_Map){
     
     vector2d temppos=entity_getpos(&character->character);
-
-    
+    double angle=M_PI / 4.0;
+    p_x =-character->speed*cos(angle);
+    p_y =character->speed* sin(angle);
     
      if (temppos.x+p_x < 0 || temppos.x+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
         p_x = 0;
@@ -45,14 +46,13 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 }
 
 void character_collision(Character* p_a, Map* p_b){
-   int C_x=p_a->character.pos.x+16;
-   int C_y=p_a->character.pos.y+16;
+   int C_x=p_a->character.pos.x+p_a->character.currentFrame.w/2;
+   int C_y=p_a->character.pos.y+p_a->character.currentFrame.h/2;
    mapE Tile = p_b->mapTiles[C_y/16][C_x/16];
    char type =getType(&p_b->walls,Tile.key>0?Tile.key:0);
    vector2d tempvect=p_a->character.pos;
 //    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
    
-    
     
             if(type !='\0'){
                 

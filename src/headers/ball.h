@@ -16,3 +16,4 @@ void moveBall(Ball* ball,Map* p_map);
 int BgetSpeed(Ball* ball);
 int ball_collision(Ball* ball,Map* p_b);
 void ball_setSpeed(Ball* ball,int speed);
+int ball_getSpeed(Ball* ball);

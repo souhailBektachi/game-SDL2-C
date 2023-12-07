@@ -12,7 +12,7 @@ int WinMain()
 {
                 
 
-    const int FPS=30;
+    const int FPS=60;
     const int framdelay =1000/FPS;
     Uint32 framesStart;
     int frameTime;
@@ -81,23 +81,23 @@ int WinMain()
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(CgetSpeed(&player)/2,-CgetSpeed(&player)/2,&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),-CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(-CgetSpeed(&player)/2,-CgetSpeed(&player)/2,&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(CgetSpeed(&player)/2,CgetSpeed(&player)/2,&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player),CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(-CgetSpeed(&player)/2,CgetSpeed(&player)/2,&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN]){
                 entity_setTex(&player.character,playerTextureDown);
@@ -122,6 +122,7 @@ int WinMain()
                 entity_setTex(&player.character,playerTexture);
                 movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex]);
                 flip=0;
+                
             
                 
             }
@@ -137,6 +138,8 @@ int WinMain()
                     mapindex=mapindex==0?1:0;
 
                     break;
+ 
+
 
                 default:
                     break;
