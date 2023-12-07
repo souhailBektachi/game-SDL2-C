@@ -14,23 +14,20 @@ int CgetSpeed(Character* character){
 
 
 
-void movecharacter(float p_x,float p_y,Character* character,Map* p_Map){
+void movecharacter(double angle,Character* character,Map* p_Map){
     
     vector2d temppos=entity_getpos(&character->character);
-    double angle=M_PI / 4.0;
-    p_x =-character->speed*cos(angle);
-    p_y =character->speed* sin(angle);
-    
-     if (temppos.x+p_x < 0 || temppos.x+p_x > SCREEN_WIDTH - entity_getCFrame(&character->character).w ) {
-        p_x = 0;
-    } 
-     if (temppos.y+p_y < 0 || temppos.y+p_y > SCREEN_HEIGHT - entity_getCFrame(&character->character).h-16 ) {
-        p_y = 0;
-    }
+    Character tempC;
+    copy_character(&tempC,character);
+    int p_x =character->speed*cos(angle);
+    int p_y =character->speed* sin(angle);
+    entity_setpos(&tempC.character,temppos.x+p_x,temppos.y+p_y);
     
    
-    entity_setpos(&character->character,temppos.x+ p_x,temppos.y+p_y);
-    character_collision(character ,p_Map);
+    
+
+    character_collision(&tempC ,p_Map);
+    entity_setpos(&character->character,tempC.character.pos.x,tempC.character.pos.y);
         
        
     }
@@ -66,3 +63,6 @@ void character_collision(Character* p_a, Map* p_b){
 }
 
 
+void copy_character(Character* p_a,Character* p_b){
+    character(p_b->character.pos.x,p_b->character.pos.y,p_b->textures[0],p_a,p_b->speed);
+}

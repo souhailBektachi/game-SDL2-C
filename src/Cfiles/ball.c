@@ -49,7 +49,6 @@ void moveBall(Ball* ball,Map* p_map){
         // ball_setSpeed(ball,-ball->speed);
        xspeed*=cos(((rand()%360)-180) * M_PI / 180.0);
        yspeed*=ball->speed*sin(20.0 * M_PI / 180.0);
-       printf("x:%d y:%d\n",xspeed,yspeed);
 
     }
     entity_setpos(&ball->ball,tempB.ball.pos.x,tempB.ball.pos.y);

@@ -81,38 +81,38 @@ int WinMain()
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player)/2,-CgetSpeed(&player)/2,&player,&themap[mapindex]);
+                movecharacter(-M_PI/4,&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player)/2,-CgetSpeed(&player)/2,&player,&themap[mapindex]);
+                movecharacter(-(3*M_PI)/4,&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=1;
-                movecharacter(CgetSpeed(&player)/2,CgetSpeed(&player)/2,&player,&themap[mapindex]);
+                movecharacter(M_PI/4,&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN] && keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTextureDownLR);
                 flip=0;
-                movecharacter(-CgetSpeed(&player)/2,CgetSpeed(&player)/2,&player,&themap[mapindex]);
+                movecharacter((3*M_PI)/4,&player,&themap[mapindex]);
                 
             }else if(keyboardState[SDL_SCANCODE_DOWN]){
                 entity_setTex(&player.character,playerTextureDown);
-                movecharacter(0,CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(M_PI / 2.0,&player,&themap[mapindex]);
                 
                 
             }else if(keyboardState[SDL_SCANCODE_UP]){
                 entity_setTex(&player.character,playerTextureUP);
-                movecharacter(0,-CgetSpeed(&player),&player,&themap[mapindex]);
+                movecharacter(-M_PI / 2.0,&player,&themap[mapindex]);
                 
                 
             
             }else if(keyboardState[SDL_SCANCODE_LEFT]){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex]);
+                movecharacter(M_PI ,&player,&themap[mapindex]);
                 flip=1;
                 
 
@@ -120,7 +120,7 @@ int WinMain()
                 
             }else if(keyboardState[SDL_SCANCODE_RIGHT] ){
                 entity_setTex(&player.character,playerTexture);
-                movecharacter(CgetSpeed(&player),0,&player,&themap[mapindex]);
+                movecharacter(0,&player,&themap[mapindex]);
                 flip=0;
                 
             
