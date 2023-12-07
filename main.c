@@ -138,7 +138,14 @@ int WinMain()
                     mapindex=mapindex==0?1:0;
 
                     break;
- 
+                case SDLK_r:
+                    entity_setpos(&player.character,200,200);
+
+                    reveive_character(&player);
+                    break;
+                case SDLK_m:
+                    ball_setSpeed(&theball,ball_getSpeed(&theball)+1);
+                    break;
 
 
                 default:
@@ -151,11 +158,12 @@ int WinMain()
 
             clear(&window);
             renderMap(&themap[mapindex],&window,mapTextureHW[mapindex]);
-            render(&player.character,&window,flip);
+            if(!isDead(&player)){
+            render(&player.character,&window,flip);}
             entity_setpos(&Player2.character,150,entity_getpos(&Player2.character).y);
             // render(&Player2.character,&window,0);
             render(&theball.ball,&window,0);
-            moveBall(&theball,&themap[mapindex]);
+            moveBall(&theball,&themap[mapindex],&player);
             
             display(&window);
             // printmap(&themap[mapindex]);

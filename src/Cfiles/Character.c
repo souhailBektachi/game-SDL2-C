@@ -6,6 +6,7 @@ void character(float x,float y,SDL_Texture* texture,Character* character,int spe
     character->coll=0;
     character->speed=speed;
     character->textures[0]=texture;
+    character->isDead=0;
 }
 int CgetSpeed(Character* character){
     return character->speed;
@@ -66,11 +67,17 @@ void character_collision(Character* p_a, Map* p_b){
 void copy_character(Character* p_a,Character* p_b){
     character(p_b->character.pos.x,p_b->character.pos.y,p_b->textures[0],p_a,p_b->speed);
 }
-void Kill_Character(Character* p_a){
-    p_a->isDead=1;
-    
-}
 
 int isDead(Character* p_a){
     return p_a->isDead;
+}
+void Kill_Character(Character* p_a){
+    if(!p_a->isDead){
+    p_a->isDead=1;}
+    
+}
+void reveive_character(Character* p_a){
+     if(p_a->isDead){
+    p_a->isDead=0;}
+   
 }

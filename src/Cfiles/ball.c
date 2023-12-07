@@ -42,7 +42,7 @@ int getRandomNumber(int min, int max) {
 }
 
 
-void moveBall(Ball* ball,Map* p_map){
+void moveBall(Ball* ball,Map* p_map,Character* character){
         vector2d temppos=entity_getpos(&ball->ball);
         Ball tempB;
         double newangle;
@@ -54,13 +54,14 @@ void moveBall(Ball* ball,Map* p_map){
         entity_setpos(&tempB.ball,temppos.x+(int)xspeed,temppos.y+(int)yspeed);
     if (ball_collision(&tempB,p_map)){
         PN *=-1;
-        newangle=angle+(PN*(getRandomNumber(45, 180)*M_PI)/180.0);
+        newangle=PN*(getRandomNumber(45, 180)*M_PI)/180.0;
         Set_BallAngle(ball,newangle);
         
         
 
     }
     entity_setpos(&ball->ball,tempB.ball.pos.x,tempB.ball.pos.y);
+    ballCharacter_collision(ball,character);
 
 }
 
@@ -76,6 +77,8 @@ void Set_BallAngle(Ball* ball,double angle){
 double Get_BallAngle(Ball* ball){
     return ball->angle;
 }
-int ballCharacter_Collision(Ball* ball,Character character){
-    return 0;
+void ballCharacter_collision(Ball* ball,Character* character){
+    if(entityToEntity_collision(&ball->ball,&character->character)){
+        Kill_Character(character);
+    }
 }

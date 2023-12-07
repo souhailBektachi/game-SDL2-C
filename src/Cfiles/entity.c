@@ -112,3 +112,19 @@ vector2d entity_collision(const SDL_Rect p_a,SDL_Rect p_b,vector2d p_aPos,vector
 
 }
 
+int entityToEntity_collision(Entity* p_a,Entity* p_b){
+    SDL_Rect p_aRect=p_a->currentFrame;
+    SDL_Rect p_bRect = p_b->currentFrame;
+    p_aRect.x=p_a->pos.x;
+    p_aRect.y=p_a->pos.y;
+    p_bRect.x=p_b->pos.x;
+    p_bRect.y=p_b->pos.y;
+    
+    if(SDL_HasIntersection(&p_aRect,&p_bRect)){
+        return 1;
+    }else{
+        return 0;
+    }
+
+}
+

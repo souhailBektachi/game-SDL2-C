@@ -26,3 +26,4 @@ void character_collision( Character* p_a, Map* p_b);
 void copy_character(Character* p_a,Character* p_b);
 void Kill_Character(Character* p_a);
 int isDead(Character* p_a);
+void reveive_character(Character* p_a);
