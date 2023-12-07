@@ -7,8 +7,7 @@
 #include "csts.h"
 #include "Character.h"
 #include "map.h"
-
-
+#include "ball.h"
 int WinMain()
 {
                 
@@ -38,6 +37,7 @@ int WinMain()
     SDL_Texture* playerTextureDown=loadtexture("assets/gfx/rundown.png",&window);
     SDL_Texture* playerTextureUPLR=loadtexture("assets/gfx/runUpToLeft.png",&window);
     SDL_Texture* playerTextureDownLR=loadtexture("assets/gfx/runDownLeft.png",&window);
+    SDL_Texture* Balltexture=loadtexture("assets/gfx/ball.png",&window);
     Character player;
     Character Player2;
     character(200,200,playerTexture,&Player2,10);
@@ -56,9 +56,10 @@ int WinMain()
         createMap(&themap[i]);
     }
     
-
-    character(200,271,playerTexture,&player,10);
     
+    character(200,271,playerTexture,&player,10);
+    Ball theball;
+    ball(200,200,Balltexture,&theball,3);
     
     int gameRunning=1;
     int flip=0;
@@ -76,6 +77,7 @@ int WinMain()
             if(event.type==SDL_QUIT){
                 gameRunning =0;
             }
+
             if(keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT]){
                 entity_setTex(&player.character,playerTextureUPLR);
                 flip=1;
@@ -113,6 +115,8 @@ int WinMain()
                 movecharacter(-CgetSpeed(&player),0,&player,&themap[mapindex]);
                 flip=1;
                 
+
+                
                 
             }else if(keyboardState[SDL_SCANCODE_RIGHT] ){
                 entity_setTex(&player.character,playerTexture);
@@ -146,15 +150,16 @@ int WinMain()
             renderMap(&themap[mapindex],&window,mapTextureHW[mapindex]);
             render(&player.character,&window,flip);
             entity_setpos(&Player2.character,150,entity_getpos(&Player2.character).y);
-            render(&Player2.character,&window,0);
-            
-            
+            // render(&Player2.character,&window,0);
+            render(&theball.ball,&window,0);
+            moveBall(&theball,&themap[mapindex]);
             
             display(&window);
             // printmap(&themap[mapindex]);
             frameTime=SDL_GetTicks()-framesStart;
             if(framdelay>frameTime){
             SDL_Delay(framdelay-frameTime);
+
            }
             
         

@@ -44,11 +44,10 @@ void addTextuers(SDL_Texture* textures[],Character* character,int size){
 
 }
 
-void character_collision(const Character* p_a,const Map* p_b){
+void character_collision(Character* p_a, Map* p_b){
    int C_x=p_a->character.pos.x+16;
    int C_y=p_a->character.pos.y+16;
    mapE Tile = p_b->mapTiles[C_y/16][C_x/16];
-   
    char type =getType(&p_b->walls,Tile.key>0?Tile.key:0);
    vector2d tempvect=p_a->character.pos;
 //    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;

@@ -14,4 +14,5 @@ typedef struct{
 void ball(float x,float y,SDL_Texture* ball_texture,Ball* ball,int speed);
 void moveBall(Ball* ball,Map* p_map);
 int BgetSpeed(Ball* ball);
-void ball_collision(Ball* ball,Map* p_b);
+int ball_collision(Ball* ball,Map* p_b);
+void ball_setSpeed(Ball* ball,int speed);
