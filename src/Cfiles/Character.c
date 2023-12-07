@@ -66,3 +66,11 @@ void character_collision(Character* p_a, Map* p_b){
 void copy_character(Character* p_a,Character* p_b){
     character(p_b->character.pos.x,p_b->character.pos.y,p_b->textures[0],p_a,p_b->speed);
 }
+void Kill_Character(Character* p_a){
+    p_a->isDead=1;
+    
+}
+
+int isDead(Character* p_a){
+    return p_a->isDead;
+}

@@ -59,7 +59,7 @@ int WinMain()
     
     character(200,271,playerTexture,&player,10);
     Ball theball;
-    ball(200,200,Balltexture,&theball,3);
+    ball(200,200,Balltexture,&theball,3,M_PI/4);
     
     int gameRunning=1;
     int flip=0;

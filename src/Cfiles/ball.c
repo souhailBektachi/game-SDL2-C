@@ -1,8 +1,9 @@
 #include "ball.h"
 
-void ball(float x ,float y, SDL_Texture* ball_texture,Ball* ball,int speed){
+void ball(float x ,float y, SDL_Texture* ball_texture,Ball* ball,int speed,double angle){
 entity(x,y,ball_texture,&ball->ball,16,16);
     ball->speed=speed;
+    ball->angle=angle;
     
     
 }
@@ -36,19 +37,27 @@ int ball_collision(Ball* ball,Map* p_b){
         return coll;}
     
    
+int getRandomNumber(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
 
 
 void moveBall(Ball* ball,Map* p_map){
         vector2d temppos=entity_getpos(&ball->ball);
         Ball tempB;
+        double newangle;
+        double angle=Get_BallAngle(ball);
+        double xspeed=ball->speed *cos(angle);
+        double yspeed=ball->speed*sin(angle);
         
-        int xspeed=ball->speed;
-        int yspeed=ball->speed;
-        entity_setpos(&tempB.ball,temppos.x+xspeed,temppos.y+yspeed);
+        static int PN=1;
+        entity_setpos(&tempB.ball,temppos.x+(int)xspeed,temppos.y+(int)yspeed);
     if (ball_collision(&tempB,p_map)){
-        // ball_setSpeed(ball,-ball->speed);
-       xspeed*=cos(((rand()%360)-180) * M_PI / 180.0);
-       yspeed*=ball->speed*sin(20.0 * M_PI / 180.0);
+        PN *=-1;
+        newangle=angle+(PN*(getRandomNumber(45, 180)*M_PI)/180.0);
+        Set_BallAngle(ball,newangle);
+        
+        
 
     }
     entity_setpos(&ball->ball,tempB.ball.pos.x,tempB.ball.pos.y);
@@ -60,4 +69,13 @@ void ball_setSpeed(Ball* ball,int speed){
 }
 int ball_getSpeed(Ball* ball){
     return ball->speed;
+}
+void Set_BallAngle(Ball* ball,double angle){
+    ball->angle=angle;
+}
+double Get_BallAngle(Ball* ball){
+    return ball->angle;
+}
+int ballCharacter_Collision(Ball* ball,Character character){
+    return 0;
 }
