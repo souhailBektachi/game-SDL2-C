@@ -1,5 +1,7 @@
 #include "vector2d.h"
-
+#ifndef M_PI
+#define M_PI (3.14159265358979323846)
+#endif
 
 void vector(vector2d* v,int x,int y){
     v->x=x;
@@ -31,3 +33,10 @@ vector2d multiplyBy(vector2d p_a,float x){
 // vector2d rotateVector(vector2d* p_a,int angle){
 //     p_a.x=cos(angle+
 // }
+double reflection_angle(double xspeed,double yspeed,int PN){
+    double angle=atan2(yspeed,xspeed);
+
+    angle+=PN*((double)rand()/RAND_MAX)* (M_PI / 2) - (M_PI / 4);
+    return angle;
+
+}

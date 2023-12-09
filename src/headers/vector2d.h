@@ -1,6 +1,8 @@
 #pragma once
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
+#include <stdio.h>
 
 typedef struct vector2d 
 {
@@ -13,3 +15,4 @@ vector2d addVec(vector2d p_a,vector2d p_b);
 vector2d SubVec(vector2d p_a,vector2d p_b);
 vector2d multiplyBy(vector2d p_a,float x);
 vector2d rotateVector(vector2d* p_a,int angle);
+double reflection_angle(double xspeed,double yspeed,int PN);

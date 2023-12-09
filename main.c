@@ -67,9 +67,10 @@ int WinMain()
     
     SDL_Event event;   
     while(gameRunning){
+        framesStart=SDL_GetTicks();
         while (SDL_PollEvent(&event))
         {
-            framesStart=SDL_GetTicks();
+            
             const Uint8 *keyboardState = SDL_GetKeyboardState(NULL);
 
             
@@ -145,6 +146,7 @@ int WinMain()
                     break;
                 case SDLK_m:
                     ball_setSpeed(&theball,ball_getSpeed(&theball)+1);
+                    
                     break;
 
 
@@ -167,8 +169,10 @@ int WinMain()
             
             display(&window);
             // printmap(&themap[mapindex]);
+
             frameTime=SDL_GetTicks()-framesStart;
             if(framdelay>frameTime){
+                printf("test");
             SDL_Delay(framdelay-frameTime);
 
            }

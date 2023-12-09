@@ -5,7 +5,6 @@ entity(x,y,ball_texture,&ball->ball,16,16);
     ball->speed=speed;
     ball->angle=angle;
     
-    
 }
 int BgetSpeed(Ball* ball){
     return ball->speed;
@@ -36,16 +35,12 @@ int ball_collision(Ball* ball,Map* p_b){
 
         return coll;}
     
-   
-int getRandomNumber(int min, int max) {
-    return rand() % (max - min + 1) + min;
-}
+
 
 
 void moveBall(Ball* ball,Map* p_map,Character* character){
         vector2d temppos=entity_getpos(&ball->ball);
         Ball tempB;
-        double newangle;
         double angle=Get_BallAngle(ball);
         double xspeed=ball->speed *cos(angle);
         double yspeed=ball->speed*sin(angle);
@@ -54,14 +49,14 @@ void moveBall(Ball* ball,Map* p_map,Character* character){
         entity_setpos(&tempB.ball,temppos.x+(int)xspeed,temppos.y+(int)yspeed);
     if (ball_collision(&tempB,p_map)){
         PN *=-1;
-        newangle=PN*(getRandomNumber(45, 180)*M_PI)/180.0;
-        Set_BallAngle(ball,newangle);
+        Set_BallAngle(ball,reflection_angle(xspeed,yspeed,PN));
         
         
 
-    }
+        }    
     entity_setpos(&ball->ball,tempB.ball.pos.x,tempB.ball.pos.y);
     ballCharacter_collision(ball,character);
+    printf("%f %f\n",ball->ball.pos.x,ball->ball.pos.y);
 
 }
 
