@@ -22,7 +22,7 @@ typedef struct
 
 void gameInit(game *game, const char *title);
 void handleEvents(game *game);
-void update(game *game);
+void update(game *game,double deltaTime);
 void renderGame(game *game);
 void cleanGame(game *game);
 bool running();
