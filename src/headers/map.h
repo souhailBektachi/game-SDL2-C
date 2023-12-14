@@ -34,3 +34,4 @@ void renderMap(Map *map, RenderW *window, int textureHW);
 int get_rendered(Map *map);
 void set_rendered(Map *map, int x);
 void setKey(mapE *Emap, int key);
+void cleanMap(Map *map);

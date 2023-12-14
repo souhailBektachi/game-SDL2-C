@@ -19,12 +19,13 @@ int CgetSpeed(Character *character)
 
 void movecharacter(double angle, Character *character, Map *p_Map)
 {
+    double Dt = getDelta_time(&character->character);
 
     vector2d temppos = entity_getpos(&character->character);
     Character tempC;
     copy_character(&tempC, character);
-    int p_x = character->speed * cos(angle);
-    int p_y = character->speed * sin(angle);
+    int p_x = character->speed * cos(angle) * Dt;
+    int p_y = character->speed * sin(angle) * Dt;
     entity_setpos(&tempC.character, temppos.x + p_x, temppos.y + p_y);
 
     character_collision(&tempC, p_Map);
@@ -79,4 +80,13 @@ void reveive_character(Character *p_a)
     {
         p_a->isDead = 0;
     }
+}
+void cleanCharacter(Character *p_a)
+{
+    cleanEntity(&p_a->character);
+    for (int i = 0; i < 5; i++)
+    {
+        SDL_DestroyTexture(p_a->textures[i]);
+    }
+    free(p_a);
 }

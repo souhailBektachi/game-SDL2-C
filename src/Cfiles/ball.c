@@ -39,9 +39,9 @@ void moveBall(Ball *ball, Map *p_map, Character *character)
     vector2d temppos = entity_getpos(&ball->ball);
     Ball tempB;
     double angle = Get_BallAngle(ball);
-    // float Dt = getDelta_time(&ball->ball);
-    double xspeed = ball->speed * cos(angle);
-    double yspeed = ball->speed * sin(angle);
+    float Dt = getDelta_time(&ball->ball);
+    double xspeed = ball->speed * cos(angle) * Dt;
+    double yspeed = ball->speed * sin(angle) * Dt;
 
     static int PN = 1;
     entity_setpos(&tempB.ball, temppos.x + (int)xspeed, temppos.y + (int)yspeed);
@@ -76,4 +76,10 @@ void ballCharacter_collision(Ball *ball, Character *character)
     {
         Kill_Character(character);
     }
+}
+void cleanBall(Ball *ball)
+{
+    cleanEntity(&ball->ball);
+    SDL_DestroyTexture(ball->ball_texture);
+    free(ball);
 }

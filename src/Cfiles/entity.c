@@ -137,3 +137,8 @@ float getDelta_time(Entity *entity)
 {
     return entity->delta_time;
 }
+void cleanEntity(Entity *entity)
+{
+    SDL_DestroyTexture(entity->texture);
+    free(entity);
+}

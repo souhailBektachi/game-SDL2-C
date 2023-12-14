@@ -139,3 +139,8 @@ void cleanGame(game *game)
 {
     cleanUp(&game->window);
 }
+void update(game *game, double deltaTime)
+{
+    setDelta_time(&game->player.character, deltaTime);
+    setDelta_time(&game->theball.ball, deltaTime);
+}

@@ -28,3 +28,4 @@ vector2d entity_collision(const SDL_Rect p_a, SDL_Rect p_b, vector2d p_aPos, vec
 int entityToEntity_collision(Entity *p_a, Entity *p_b);
 void setDelta_time(Entity *entity, float deltaTime);
 float getDelta_time(Entity *entity);
+void cleanEntity(Entity *entity);
