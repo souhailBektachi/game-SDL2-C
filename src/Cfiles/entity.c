@@ -8,8 +8,8 @@ void entity(float x, float y, SDL_Texture *texture, Entity *entity, float h, flo
 
     entity->currentFrame.x = 0;
     entity->currentFrame.y = 0;
-    entity->currentFrame.h = h;
-    entity->currentFrame.w = w;
+    entity->currentFrame.h = entity->destFrame.h = h;
+    entity->currentFrame.w = entity->destFrame.h = w;
 
     entity->texture = texture;
     entity->isflipped = 0;
@@ -141,4 +141,14 @@ void cleanEntity(Entity *entity)
 {
     SDL_DestroyTexture(entity->texture);
     free(entity);
+}
+
+void set_destFrame(Entity *entity, float h, float w)
+{
+    entity->destFrame.h = h;
+    entity->destFrame.w = w;
+}
+SDL_Rect get_destFrame(Entity *entity)
+{
+    return entity->destFrame;
 }

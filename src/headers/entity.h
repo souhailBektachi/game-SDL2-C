@@ -10,6 +10,7 @@ typedef struct
 {
 
     SDL_Rect currentFrame;
+    SDL_Rect destFrame;
     vector2d pos;
     SDL_Texture *texture;
     float delta_time;
@@ -29,3 +30,5 @@ int entityToEntity_collision(Entity *p_a, Entity *p_b);
 void setDelta_time(Entity *entity, float deltaTime);
 float getDelta_time(Entity *entity);
 void cleanEntity(Entity *entity);
+void set_destFrame(Entity *entity, float h, float w);
+SDL_Rect get_destFrame(Entity *entity);
