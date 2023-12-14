@@ -25,7 +25,6 @@ int WinMain()
 
         if (framdelay > frameTime)
         {
-            printf("%f:%f\n", getDelta_time(&game.player.character), deltaTime);
             SDL_Delay(framdelay - frameTime);
         }
     }
