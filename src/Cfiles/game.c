@@ -20,7 +20,7 @@ void gameInit(game *game, const char *title)
     SDL_Texture *playerTextures[5] = {loadtexture("assets/gfx/run.png", &game->window), loadtexture("assets/gfx/runUP.png", &game->window), loadtexture("assets/gfx/rundown.png", &game->window), loadtexture("assets/gfx/runUpToLeft.png", &game->window), loadtexture("assets/gfx/runDownLeft.png", &game->window)};
 
     SDL_Texture *Balltexture = loadtexture("assets/gfx/ball.png", &game->window);
-    character(200, 271, playerTextures, &game->player, 10);
+    character(200, 271, playerTextures, &game->player, 400);
     const char *mapAssets[2] = {"assets/maps/firstlevel.csv", "assets/maps/secondlevel.csv"};
     SDL_Texture *maptexture[2] = {loadtexture("assets/gfx/map.png", &game->window), loadtexture("assets/gfx/dungeontileset-extended.png", &game->window)};
     const char *mapWalls[2] = {"assets/maps/secondlevelwalls.csv", "assets/maps/secondlevelwalls.csv"};
@@ -32,7 +32,7 @@ void gameInit(game *game, const char *title)
         map(maptexture[i], mapAssets[i], &game->themap[i], mapWalls[i]);
         createMap(&game->themap[i]);
     }
-    ball(200, 200, Balltexture, &game->theball, 3, M_PI / 4);
+    ball(200, 200, Balltexture, &game->theball, 120, M_PI / 4);
     game->mapindex = 1;
 }
 

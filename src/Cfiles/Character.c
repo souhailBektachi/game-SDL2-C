@@ -24,8 +24,8 @@ void movecharacter(double angle, Character *character, Map *p_Map)
     vector2d temppos = entity_getpos(&character->character);
     Character tempC;
     copy_character(&tempC, character);
-    int p_x = character->speed * cos(angle) * Dt;
-    int p_y = character->speed * sin(angle) * Dt;
+    float p_x = character->speed * cos(angle) * Dt;
+    float p_y = character->speed * sin(angle) * Dt;
     entity_setpos(&tempC.character, temppos.x + p_x, temppos.y + p_y);
 
     character_collision(&tempC, p_Map);
