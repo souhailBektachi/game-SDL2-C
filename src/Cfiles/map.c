@@ -66,7 +66,5 @@ void setKey(mapE *Emap, int key)
 void cleanMap(Map *map)
 {
     SDL_DestroyTexture(map->maptex);
-    free(&map->csvFile);
-    free(&map->wallFile);
     free(map);
 }
