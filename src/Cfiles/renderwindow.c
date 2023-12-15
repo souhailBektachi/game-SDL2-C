@@ -53,8 +53,8 @@ void render(Entity* p_entity,RenderW* renderwindow,int flip){
     SDL_Rect dst;
     dst.x=p_entity->pos.x;
     dst.y=p_entity->pos.y;
-    dst.h=entity_getCFrame(p_entity).h;
-    dst.w=entity_getCFrame(p_entity).w;
+    dst.h=get_destFrame(p_entity).h;
+    dst.w=get_destFrame(p_entity).w;
     int isflipped=flip?SDL_FLIP_HORIZONTAL:SDL_FLIP_NONE;
     
     SDL_RenderCopyEx(renderwindow->renderer,entity_getTex(p_entity),&src,&dst,0,NULL ,  isflipped);

@@ -1,13 +1,14 @@
 #include "map.h"
 
-void map(SDL_Texture *maptex, const char *csvFile, Map *map, const char *wallFile)
+void map(SDL_Texture *maptex, const char *csvFile, Map *map, const char *wallFile, float h, float w)
 {
     map->csvFile = csvFile;
     map->maptex = maptex;
     map->wallFile = wallFile;
     entity(0, 0, map->maptex, &map->theMap, 16, 16);
     map->rendered = 0;
-
+    map->srcTilesSize.h = h;
+    map->srcTilesSize.w = w;
     for (int i = 0; i < HASH_SIZE; ++i)
     {
         map->walls.table[i] = NULL;
@@ -24,29 +25,29 @@ void createMap(Map *map)
 void renderMap(Map *map, RenderW *window, int textureHW)
 {
     int key, x, y;
-
+    int srcSize = (int)get_srcTilesSize(map);
+    int tilesize = (int)get_mapTilesSize(map);
+    int mapsize = SCREEN_HEIGHT / tilesize;
     int k = 0;
-    for (int i = 0; i < 30 * 16; i += 16)
+    for (int i = 0; i < mapsize * tilesize; i += tilesize)
     {
-        for (int j = 0; j < 30 * 16; j += 16)
+        for (int j = 0; j < mapsize * tilesize; j += tilesize)
         {
             key = map->mapKeys[k];
             k++;
-            x = (key % textureHW) * 16;
-            y = (key / textureHW) * 16;
-
+            x = (key % textureHW) * srcSize;
+            y = (key / textureHW) * srcSize;
             if (!map->rendered)
             {
-                entity(j, i, map->maptex, &map->mapTiles[i / 16][j / 16].Tile, 16, 16);
 
-                entity_setCFrame(&map->mapTiles[i / 16][j / 16].Tile, 16, 16, x, y);
-                setKey(&map->mapTiles[i / 16][j / 16], key);
-            }
-            for (int w = 0; w < 1; w++)
-            {
+                entity(j, i, map->maptex, &map->mapTiles[i / tilesize][j / tilesize].Tile, tilesize, tilesize);
+
+                entity_setCFrame(&map->mapTiles[i / tilesize][j / tilesize].Tile, srcSize, srcSize, x, y);
+                set_destFrame(&map->mapTiles[i / tilesize][j / tilesize].Tile, tilesize, tilesize);
+                setKey(&map->mapTiles[i / tilesize][j / tilesize], key);
             }
 
-            render(&map->mapTiles[i / 16][j / 16].Tile, window, 0);
+            render(&map->mapTiles[i / tilesize][j / tilesize].Tile, window, 0);
         }
     }
     set_rendered(map, 1);
@@ -62,6 +63,19 @@ void set_rendered(Map *map, int x)
 void setKey(mapE *Emap, int key)
 {
     Emap->key = key;
+}
+void Set_mapTilesSize(Map *map, float size)
+{
+
+    map->mapTilesSize.h = map->mapTilesSize.w = size;
+}
+float get_mapTilesSize(Map *map)
+{
+    return map->mapTilesSize.w;
+}
+float get_srcTilesSize(Map *map)
+{
+    return map->srcTilesSize.w;
 }
 void cleanMap(Map *map)
 {
