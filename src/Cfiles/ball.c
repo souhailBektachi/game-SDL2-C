@@ -17,12 +17,13 @@ int ball_collision(Ball *ball, Map *p_b)
     B_pos.y += 8;
     int coll = 0;
 
-    mapE Tile = p_b->mapTiles[(int)B_pos.y / 16][(int)B_pos.x / 16];
+    int size = p_b->mapTilesSize.w;
+    mapE Tile = p_b->mapTiles[(int)B_pos.y / size][(int)B_pos.x / size];
     char type = getType(&p_b->walls, Tile.key > 0 ? Tile.key : 0);
     vector2d tempvect;
     if (type != '\0')
     {
-        tempvect = entity_collision(ball->ball.currentFrame, Tile.Tile.currentFrame, ball->ball.pos, Tile.Tile.pos, type);
+        tempvect = entity_collision(ball->ball.currentFrame, Tile.Tile.destFrame, ball->ball.pos, Tile.Tile.pos, type);
         vector(&tempvect, tempvect.x, tempvect.y);
         if (tempvect.x != ball->ball.pos.x || tempvect.y != ball->ball.pos.y)
         {
@@ -43,12 +44,10 @@ void moveBall(Ball *ball, Map *p_map, Character *character)
     double xspeed = ball->speed * cos(angle) * Dt;
     double yspeed = ball->speed * sin(angle) * Dt;
 
-    static int PN = 1;
     entity_setpos(&tempB.ball, temppos.x + (int)xspeed, temppos.y + (int)yspeed);
     if (ball_collision(&tempB, p_map))
     {
-        PN *= -1;
-        Set_BallAngle(ball, reflection_angle(xspeed, yspeed, PN));
+        Set_BallAngle(ball, reflection_angle(xspeed, yspeed, -1));
     }
     entity_setpos(&ball->ball, tempB.ball.pos.x, tempB.ball.pos.y);
     ballCharacter_collision(ball, character);
