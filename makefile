@@ -3,15 +3,20 @@ CFLAGS = -Wall -Wextra -std=c11 -I src/include -I src/headers
 LDFLAGS = -L src/lib -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2main
 
 TARGET = game
-SRC_DIR = src/Cfiles
-SRC = $(wildcard $(SRC_DIR)/*.c)
-SRC += main.c
-OBJ = $(SRC:.c=.o)
+SRC_DIR = src\Cfiles
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+OBJ_DIR = src\obj
+SRC_FILES += main.c
+OBJ_FILES = $(patsubst $(SRC_DIR)\%.c, $(OBJ_DIR)\%.o, $(SRC_FILES))
+
 
 all: $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LDFLAGS)
+$(TARGET): $(OBJ_FILES)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ_FILES) $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(TARGET)
+	del $(OBJ_DIR)\*.o
