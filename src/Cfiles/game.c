@@ -21,7 +21,7 @@ void gameInit(game *game, const char *title)
 
     SDL_Texture *Balltexture = loadtexture("assets/gfx/ball.png", &game->window);
     character(200, 271, playerTextures, &game->player, 400);
-    const char *mapAssets[2] = {"assets/maps/firstlevel.csv", "assets/maps/secondlevel.csv"};
+    const char *mapAssets[2] = {"assets/maps/firstlevel.csv", "assets/maps/secondlevel2.csv"};
     SDL_Texture *maptexture[2] = {loadtexture("assets/gfx/map.png", &game->window), loadtexture("assets/gfx/dungeontileset-extended.png", &game->window)};
     const char *mapWalls[2] = {"assets/maps/secondlevelwalls.csv", "assets/maps/secondlevelwalls.csv"};
     game->themap->mapTextureHW[0] = 23;
@@ -29,11 +29,18 @@ void gameInit(game *game, const char *title)
 
     for (int i = 0; i < 2; i++)
     {
-        map(maptexture[i], mapAssets[i], &game->themap[i], mapWalls[i]);
+        map(maptexture[i], mapAssets[i], &game->themap[i], mapWalls[i], 16, 16);
         createMap(&game->themap[i]);
     }
-    ball(200, 200, Balltexture, &game->theball, 120, M_PI / 4);
+    int pos = 200;
+    for (int i = 0; i < 10; i++)
+    {
+        ball(pos, pos, Balltexture, &game->theballs[i], 360, M_PI / 4);
+        pos += 10;
+    }
+
     game->mapindex = 1;
+    Set_mapTilesSize(&game->themap[game->mapindex], 32);
 }
 
 void handleEvents(game *game)
@@ -113,7 +120,7 @@ void handleEvents(game *game)
                 reveive_character(&game->player);
                 break;
             case SDLK_m:
-                ball_setSpeed(&game->theball, ball_getSpeed(&game->theball) + 1);
+                ball_setSpeed(&game->theballs[0], ball_getSpeed(&game->theballs[0]) + 1);
 
                 break;
 
@@ -131,8 +138,17 @@ void renderGame(game *game)
     {
         render(&game->player.character, &game->window, game->player.character.isflipped);
     }
-    render(&game->theball.ball, &game->window, 0);
-    moveBall(&game->theball, &game->themap[game->mapindex], &game->player);
+
+    for (int i = 0; i < 10; i++)
+    {
+        render(&game->theballs[i].ball, &game->window, 0);
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        moveBall(&game->theballs[i], &game->themap[game->mapindex], &game->player);
+    }
+
     display(&game->window);
 }
 void cleanGame(game *game)
@@ -141,6 +157,7 @@ void cleanGame(game *game)
 }
 void update(game *game, double deltaTime)
 {
+
     setDelta_time(&game->player.character, deltaTime);
-    setDelta_time(&game->theball.ball, deltaTime);
+    setDelta_time(&game->theballs[0].ball, deltaTime);
 }
