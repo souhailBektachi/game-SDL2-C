@@ -44,7 +44,8 @@ void character_collision(Character *p_a, Map *p_b)
 {
     int C_x = p_a->character.pos.x + p_a->character.currentFrame.w / 2;
     int C_y = p_a->character.pos.y + p_a->character.currentFrame.h / 2;
-    mapE Tile = p_b->mapTiles[C_y / 16][C_x / 16];
+    int size = p_b->mapTilesSize.w;
+    mapE Tile = p_b->mapTiles[C_y / size][C_x / size];
     char type = getType(&p_b->walls, Tile.key > 0 ? Tile.key : 0);
     vector2d tempvect = p_a->character.pos;
     //    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
@@ -52,7 +53,7 @@ void character_collision(Character *p_a, Map *p_b)
     if (type != '\0')
     {
 
-        tempvect = entity_collision(p_a->character.currentFrame, Tile.Tile.currentFrame, p_a->character.pos, Tile.Tile.pos, type);
+        tempvect = entity_collision(p_a->character.currentFrame, Tile.Tile.destFrame, p_a->character.pos, Tile.Tile.pos, type);
         vector(&tempvect, tempvect.x, tempvect.y);
         entity_setpos(&p_a->character, tempvect.x, tempvect.y);
     }
