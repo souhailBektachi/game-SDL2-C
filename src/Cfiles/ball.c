@@ -35,12 +35,13 @@ int ball_collision(Ball *ball, Map *p_b)
     return coll;
 }
 
-void moveBall(Ball *ball, Map *p_map, Character *character)
+void moveBall(Ball *ball, Map *p_map, Character *character, Ball balls[], int index)
 {
     vector2d temppos = entity_getpos(&ball->ball);
     Ball tempB;
     double angle = Get_BallAngle(ball);
     float Dt = getDelta_time(&ball->ball);
+
     double xspeed = ball->speed * cos(angle) * Dt;
     double yspeed = ball->speed * sin(angle) * Dt;
 
@@ -49,8 +50,12 @@ void moveBall(Ball *ball, Map *p_map, Character *character)
     {
         Set_BallAngle(ball, reflection_angle(xspeed, yspeed, -1));
     }
-    entity_setpos(&ball->ball, tempB.ball.pos.x, tempB.ball.pos.y);
+    if (tempB.ball.pos.x < SCREEN_WIDTH && tempB.ball.pos.y < SCREEN_HEIGHT && tempB.ball.pos.x > 0 && tempB.ball.pos.y > 0)
+    {
+        entity_setpos(&ball->ball, tempB.ball.pos.x, tempB.ball.pos.y);
+    }
     ballCharacter_collision(ball, character);
+    ballBalls_collision(balls, index);
 }
 
 void ball_setSpeed(Ball *ball, int speed)
@@ -81,4 +86,21 @@ void cleanBall(Ball *ball)
     cleanEntity(&ball->ball);
     SDL_DestroyTexture(ball->ball_texture);
     free(ball);
+}
+void ballBalls_collision(Ball balls[], int index)
+{
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == index)
+        {
+            continue;
+        }
+
+        if (SDL_HasIntersection(&balls[index].ball.destFrame, &balls[i].ball.destFrame))
+        {
+            Set_BallAngle(&balls[index], -Get_BallAngle(&balls[index]));
+            Set_BallAngle(&balls[i], -Get_BallAngle(&balls[i]));
+            break;
+        }
+    }
 }

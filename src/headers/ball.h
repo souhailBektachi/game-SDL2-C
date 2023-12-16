@@ -15,9 +15,10 @@ typedef struct
 
 } Ball;
 void ball(float x, float y, SDL_Texture *ball_texture, Ball *ball, int speed, double angle);
-void moveBall(Ball *ball, Map *p_map, Character *character);
+void moveBall(Ball *ball, Map *p_map, Character *character, Ball balls[], int index);
 int BgetSpeed(Ball *ball);
 int ball_collision(Ball *ball, Map *p_b);
+void ballBalls_collision(Ball balls[], int index);
 void ball_setSpeed(Ball *ball, int speed);
 int ball_getSpeed(Ball *ball);
 void Set_BallAngle(Ball *ball, double angle);

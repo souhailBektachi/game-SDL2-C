@@ -21,8 +21,12 @@ vector2d entity_getpos(Entity *entity)
 }
 void entity_setpos(Entity *entity, float x, float y)
 {
+
     entity->pos.x = x;
+    entity->destFrame.x = x;
+
     entity->pos.y = y;
+    entity->destFrame.y = y;
 }
 SDL_Texture *entity_getTex(Entity *entity)
 {
