@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <vector2d.h>
+#include "csts.h"
 
 // #include "math.h"
 typedef struct

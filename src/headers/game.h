@@ -17,6 +17,7 @@ typedef struct
     Map themap[2];
     Ball theballs[10];
     int mapindex;
+    bool ispaused;
 
 } game;
 

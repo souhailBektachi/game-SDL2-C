@@ -40,6 +40,7 @@ void gameInit(game *game, const char *title)
     }
 
     game->mapindex = 1;
+    game->ispaused = false;
     Set_mapTilesSize(&game->themap[game->mapindex], 32);
 }
 
@@ -54,6 +55,17 @@ void handleEvents(game *game)
         if (event.type == SDL_QUIT)
         {
             game->isRunning = false;
+        }
+        switch (event.window.event)
+        {
+            // when the window is moving game paused
+
+        case SDL_WINDOWEVENT_ENTER:
+            game->ispaused = false;
+            break;
+        case SDL_WINDOWEVENT_LEAVE:
+            game->ispaused = true;
+            break;
         }
 
         if (keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT])
@@ -132,8 +144,10 @@ void handleEvents(game *game)
 }
 void renderGame(game *game)
 {
+
     clear(&game->window);
     renderMap(&game->themap[game->mapindex], &game->window, game->themap->mapTextureHW[game->mapindex]);
+
     if (!isDead(&game->player))
     {
         render(&game->player.character, &game->window, game->player.character.isflipped);
@@ -146,7 +160,7 @@ void renderGame(game *game)
 
     for (int i = 0; i < 10; i++)
     {
-        moveBall(&game->theballs[i], &game->themap[game->mapindex], &game->player);
+        moveBall(&game->theballs[i], &game->themap[game->mapindex], &game->player, game->theballs, i);
     }
 
     display(&game->window);
@@ -157,7 +171,13 @@ void cleanGame(game *game)
 }
 void update(game *game, double deltaTime)
 {
-
+    if (game->ispaused)
+    {
+        deltaTime = 0;
+    }
     setDelta_time(&game->player.character, deltaTime);
-    setDelta_time(&game->theballs[0].ball, deltaTime);
+    for (int i = 0; i < 10; i++)
+    {
+        setDelta_time(&game->theballs[i].ball, deltaTime);
+    }
 }
