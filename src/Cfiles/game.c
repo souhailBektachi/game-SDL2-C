@@ -2,6 +2,7 @@
 
 void gameInit(game *game, const char *title)
 {
+
     if (SDL_Init(SDL_INIT_VIDEO) > 0)
     {
         printf("SDL INIT HAS FAILED %s", SDL_GetError());
@@ -17,10 +18,11 @@ void gameInit(game *game, const char *title)
         RenderWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, &game->window);
         game->isRunning = true;
     }
+
     SDL_Texture *playerTextures[5] = {loadtexture("assets/gfx/run.png", &game->window), loadtexture("assets/gfx/runUP.png", &game->window), loadtexture("assets/gfx/rundown.png", &game->window), loadtexture("assets/gfx/runUpToLeft.png", &game->window), loadtexture("assets/gfx/runDownLeft.png", &game->window)};
 
     SDL_Texture *Balltexture = loadtexture("assets/gfx/ball.png", &game->window);
-    character(200, 271, playerTextures, &game->player, 400);
+    character(200, 271, playerTextures, &game->player, 600);
     const char *mapAssets[2] = {"assets/maps/firstlevel.csv", "assets/maps/secondlevel2.csv"};
     SDL_Texture *maptexture[2] = {loadtexture("assets/gfx/map.png", &game->window), loadtexture("assets/gfx/dungeontileset-extended.png", &game->window)};
     const char *mapWalls[2] = {"assets/maps/secondlevelwalls.csv", "assets/maps/secondlevelwalls.csv"};
@@ -33,15 +35,22 @@ void gameInit(game *game, const char *title)
         createMap(&game->themap[i]);
     }
     int pos = 200;
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 1; i++)
     {
         ball(pos, pos, Balltexture, &game->theballs[i], 360, M_PI / 4);
         pos += 10;
     }
 
     game->mapindex = 1;
-    game->ispaused = false;
+    game->ispaused = true;
     Set_mapTilesSize(&game->themap[game->mapindex], 32);
+    SDL_Texture *menuTexts[4] = {loadtexture("assets/gfx/Menu/Title.png", &game->window), loadtexture("assets/gfx/Menu/Play.png", &game->window), loadtexture("assets/gfx/Menu/Level maker.png", &game->window), loadtexture("assets/gfx/Menu/EXIT.png", &game->window)};
+    Menu_init(&game->themenu, loadtexture("assets/gfx/Menu/Background.png", &game->window), menuTexts, (SDL_Rect){28, 95, 423, 48}, (SDL_Rect){207, 225, 66, 29});
+    game->themenu.entities[3].currentFrame.w = 171;
+    game->themenu.entities[3].destFrame.w = 171;
+    entity_setpos(&game->themenu.entities[3], 155, entity_getpos(&game->themenu.entities[3]).y);
+    SDL_Texture *speedertex = loadtexture("assets/gfx/speeder.png", &game->window);
+    speeder_init(&game->Speeder, &game->themap[game->mapindex], speedertex, 255, 255, 32, 32, 4);
 }
 
 void handleEvents(game *game)
@@ -56,16 +65,16 @@ void handleEvents(game *game)
         {
             game->isRunning = false;
         }
-        switch (event.window.event)
+        else if (event.type == SDL_MOUSEBUTTONDOWN)
         {
-            // when the window is moving game paused
-
-        case SDL_WINDOWEVENT_ENTER:
-            game->ispaused = false;
-            break;
-        case SDL_WINDOWEVENT_LEAVE:
-            game->ispaused = true;
-            break;
+            vector2d ButtonPos = game->themenu.entities[2].pos;
+            vector2d mousePos;
+            mousePos.x = event.button.x;
+            mousePos.y = event.button.y;
+            if (mousePos.x > ButtonPos.x && mousePos.x < ButtonPos.x + 66 && mousePos.y > ButtonPos.y && mousePos.y < ButtonPos.y + 29)
+            {
+                game->ispaused = false;
+            }
         }
 
         if (keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT])
@@ -132,8 +141,11 @@ void handleEvents(game *game)
                 reveive_character(&game->player);
                 break;
             case SDLK_m:
-                ball_setSpeed(&game->theballs[0], ball_getSpeed(&game->theballs[0]) + 1);
+                ball_setSpeed(&game->theballs[0], ball_getSpeed(&game->theballs[0]) + 100);
 
+                break;
+            case SDLK_p:
+                game->ispaused = !game->ispaused;
                 break;
 
             default:
@@ -144,26 +156,35 @@ void handleEvents(game *game)
 }
 void renderGame(game *game)
 {
-
-    clear(&game->window);
-    renderMap(&game->themap[game->mapindex], &game->window, game->themap->mapTextureHW[game->mapindex]);
-
-    if (!isDead(&game->player))
+    if (game->ispaused)
     {
-        render(&game->player.character, &game->window, game->player.character.isflipped);
+        clear(&game->window);
+        Menu_render(&game->themenu, &game->window);
+        display(&game->window);
     }
-
-    for (int i = 0; i < 10; i++)
+    else
     {
-        render(&game->theballs[i].ball, &game->window, 0);
-    }
 
-    for (int i = 0; i < 10; i++)
-    {
-        moveBall(&game->theballs[i], &game->themap[game->mapindex], &game->player, game->theballs, i);
-    }
+        clear(&game->window);
+        renderMap(&game->themap[game->mapindex], &game->window, game->themap->mapTextureHW[game->mapindex]);
+        render(&game->Speeder.speeder, &game->window, 0);
+        if (!isDead(&game->player))
+        {
+            render(&game->player.character, &game->window, game->player.character.isflipped);
+        }
 
-    display(&game->window);
+        for (int i = 0; i < 1; i++)
+        {
+            render(&game->theballs[i].ball, &game->window, 0);
+        }
+
+        for (int i = 0; i < 1; i++)
+        {
+            moveBall(&game->theballs[i], &game->themap[game->mapindex], &game->player, game->theballs, i);
+        }
+
+        display(&game->window);
+    }
 }
 void cleanGame(game *game)
 {
@@ -171,13 +192,15 @@ void cleanGame(game *game)
 }
 void update(game *game, double deltaTime)
 {
-    if (game->ispaused)
-    {
-        deltaTime = 0;
-    }
+
     setDelta_time(&game->player.character, deltaTime);
     for (int i = 0; i < 10; i++)
     {
         setDelta_time(&game->theballs[i].ball, deltaTime);
+    }
+    accelerate(&game->Speeder, &game->player);
+    if (game->player.isAccelerated)
+    {
+        movecharacter(0, &game->player, &game->themap[game->mapindex]);
     }
 }
