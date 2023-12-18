@@ -17,27 +17,21 @@ int ball_collision(Ball *ball, Map *p_b)
     B_pos.y += 8;
     int size = p_b->mapTilesSize.w;
 
-    int Yindex = ((int)B_pos.y / size) - 2;
-    int xIndex = ((int)B_pos.x / size) - 2;
-    for (int j = Yindex; j < Yindex + 4; j++)
+    int Yindex = ((int)B_pos.y / size);
+    int xIndex = ((int)B_pos.x / size);
+
+    mapE Tile = p_b->mapTiles[Yindex][xIndex];
+    char type = getType(&p_b->walls, Tile.key > 0 ? Tile.key : 0);
+    vector2d tempvect;
+    if (type != '\0')
     {
-
-        for (int i = xIndex; i < xIndex + 4; i++)
+        tempvect = entity_collision(ball->ball.currentFrame, Tile.Tile.destFrame, ball->ball.pos, Tile.Tile.pos, type);
+        vector(&tempvect, tempvect.x, tempvect.y);
+        if (tempvect.x != ball->ball.pos.x || tempvect.y != ball->ball.pos.y)
         {
-            mapE Tile = p_b->mapTiles[j][i];
-            char type = getType(&p_b->walls, Tile.key > 0 ? Tile.key : 0);
-            vector2d tempvect;
-            if (type != '\0')
-            {
-                tempvect = entity_collision(ball->ball.currentFrame, Tile.Tile.destFrame, ball->ball.pos, Tile.Tile.pos, type);
-                vector(&tempvect, tempvect.x, tempvect.y);
-                if (tempvect.x != ball->ball.pos.x || tempvect.y != ball->ball.pos.y)
-                {
 
-                    entity_setpos(&ball->ball, tempvect.x, tempvect.y);
-                    return 1;
-                }
-            }
+            entity_setpos(&ball->ball, tempvect.x, tempvect.y);
+            return 1;
         }
     }
     return 0;
@@ -63,7 +57,7 @@ void moveBall(Ball *ball, Map *p_map, Character *character, Ball balls[], int in
         entity_setpos(&ball->ball, tempB.ball.pos.x, tempB.ball.pos.y);
     }
     ballCharacter_collision(ball, character);
-    ballBalls_collision(balls, index);
+    // ballBalls_collision(balls, index);
 }
 
 void ball_setSpeed(Ball *ball, int speed)
