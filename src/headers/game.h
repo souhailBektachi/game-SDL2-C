@@ -8,6 +8,9 @@
 #include "map.h"
 #include "ball.h"
 #include "entity.h"
+#include "menu.h"
+#include "speeder.h"
+// #include <SDL_thread.h>
 typedef struct
 {
     const char *title;
@@ -18,6 +21,8 @@ typedef struct
     Ball theballs[10];
     int mapindex;
     bool ispaused;
+    Menu themenu;
+    speeder Speeder;
 
 } game;
 
@@ -27,3 +32,4 @@ void update(game *game, double deltaTime);
 void renderGame(game *game);
 void cleanGame(game *game);
 bool running();
+int renderThread(void *data);

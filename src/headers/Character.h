@@ -14,6 +14,7 @@ typedef struct
     SDL_Texture *textures[5];
     int coll;
     int isDead;
+    int isAccelerated;
 
 } Character;
 
@@ -26,4 +27,7 @@ void copy_character(Character *p_a, Character *p_b);
 void Kill_Character(Character *p_a);
 int isDead(Character *p_a);
 void reveive_character(Character *p_a);
+
+int isAccelerated(Character *p_a);
+void C_accelerate(Character *p_a);
 void cleanCharacter(Character *p_a);
