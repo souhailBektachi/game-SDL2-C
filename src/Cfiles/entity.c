@@ -5,6 +5,8 @@ void entity(float x, float y, SDL_Texture *texture, Entity *entity, float h, flo
 
     entity->pos.x = x;
     entity->pos.y = y;
+    entity->destFrame.x = x;
+    entity->destFrame.y = y;
 
     entity->currentFrame.x = 0;
     entity->currentFrame.y = 0;
