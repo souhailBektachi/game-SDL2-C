@@ -11,6 +11,7 @@ void character(float x, float y, SDL_Texture *textures[], Character *character, 
     }
 
     character->isDead = 0;
+    character->isAccelerated = 0;
 }
 int CgetSpeed(Character *character)
 {
@@ -19,17 +20,27 @@ int CgetSpeed(Character *character)
 
 void movecharacter(double angle, Character *character, Map *p_Map)
 {
+    int speed;
+    if (isAccelerated(character))
+    {
+        speed = 1000;
+    }
+    else
+    {
+        speed = character->speed;
+    }
     double Dt = getDelta_time(&character->character);
 
     vector2d temppos = entity_getpos(&character->character);
     Character tempC;
     copy_character(&tempC, character);
-    float p_x = character->speed * cos(angle) * Dt;
-    float p_y = character->speed * sin(angle) * Dt;
+    float p_x = speed * cos(angle) * Dt;
+    float p_y = speed * sin(angle) * Dt;
     entity_setpos(&tempC.character, temppos.x + p_x, temppos.y + p_y);
 
     character_collision(&tempC, p_Map);
     entity_setpos(&character->character, tempC.character.pos.x, tempC.character.pos.y);
+    character->isAccelerated = 0;
 }
 
 void addTextuers(SDL_Texture *textures[], Character *character, int size)
@@ -82,6 +93,17 @@ void reveive_character(Character *p_a)
         p_a->isDead = 0;
     }
 }
+int isAccelerated(Character *p_a)
+{
+
+    return p_a->isAccelerated;
+}
+void C_accelerate(Character *p_a)
+{
+
+    p_a->isAccelerated = 1;
+}
+
 void cleanCharacter(Character *p_a)
 {
     cleanEntity(&p_a->character);
