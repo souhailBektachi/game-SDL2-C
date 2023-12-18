@@ -37,7 +37,7 @@ vector2d multiplyBy(vector2d p_a, float x)
 double reflection_angle(double xspeed, double yspeed, int PN)
 {
     double angle = atan2(yspeed, xspeed);
-    double randomDiff = PN * ((double)rand() / RAND_MAX) * (M_PI / 12) + (M_PI / 6);
+    double randomDiff = PN * ((double)rand() / RAND_MAX) * (M_PI / 12) + (M_PI / 4);
 
     angle += angle + randomDiff;
     return angle;
