@@ -14,34 +14,28 @@ Before running the game, make sure you have the following dependencies installed
 
 1. Clone the repository:
 
-    ```bash
-    git clone git@github.com:souhailBektachi/game-SDL2-C.git
-    ```
+   ```bash
+   git clone git@github.com:souhailBektachi/game-SDL2-C.git
+   ```
 
 2. Navigate to the project directory:
 
-    ```bash
-    cd game-SDL2-C
-    ```
+   ```bash
+   cd game-SDL2-C
+   ```
 
 3. Build the project:
 
-    ```bash
-    make
-    ```
+   ```bash
+   make
+   ```
 
 4. Run the game:
 
-    ```bash
-    ./game.exe
-    ```
+   ```bash
+   ./game.exe
+   ```
+
 ## Screenshots
-![Screenshot 1](screenshots/screanshot.png)
 
-
-
-
-
-
-
-
+![Screenshot 1](screenshots/2.png)
