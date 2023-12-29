@@ -70,7 +70,6 @@ vector2d entity_collision(const SDL_Rect p_a, SDL_Rect p_b, vector2d p_aPos, vec
     case 'R':
         if (p_aVect.x + p_a.w > p_bVect.x + (3 * p_b.w / 4))
         {
-
             vector(&p_aVect, p_bVect.x + (3 * p_b.w / 4) - p_a.w, p_aVect.y);
         }
         break;

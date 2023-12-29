@@ -15,7 +15,8 @@ typedef struct
     int coll;
     int isDead;
     int isAccelerated;
-
+    double angle;
+    int cycle;
 } Character;
 
 void character(float x, float y, SDL_Texture *textures[], Character *character, int speed);
@@ -31,3 +32,4 @@ void reveive_character(Character *p_a);
 int isAccelerated(Character *p_a);
 void C_accelerate(Character *p_a);
 void cleanCharacter(Character *p_a);
+void Character_animate(Character *p_a);

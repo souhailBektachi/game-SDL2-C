@@ -19,7 +19,7 @@ void gameInit(game *game, const char *title)
         game->isRunning = true;
     }
 
-    SDL_Texture *playerTextures[5] = {loadtexture("assets/gfx/run.png", &game->window), loadtexture("assets/gfx/runUP.png", &game->window), loadtexture("assets/gfx/rundown.png", &game->window), loadtexture("assets/gfx/runUpToLeft.png", &game->window), loadtexture("assets/gfx/runDownLeft.png", &game->window)};
+    SDL_Texture *playerTextures[5] = {loadtexture("assets/gfy/run.png", &game->window), loadtexture("assets/gfy/runUP.png", &game->window), loadtexture("assets/gfy/rundown.png", &game->window), loadtexture("assets/gfy/runUpToLeft.png", &game->window), loadtexture("assets/gfy/runDownLeft.png", &game->window)};
 
     SDL_Texture *Balltexture = loadtexture("assets/gfx/ball.png", &game->window);
     character(200, 271, playerTextures, &game->player, 600);
@@ -37,7 +37,7 @@ void gameInit(game *game, const char *title)
     int pos = 200;
     for (int i = 0; i < 1; i++)
     {
-        ball(pos, pos, Balltexture, &game->theballs[i], 360, M_PI / 4);
+        ball(pos, pos, Balltexture, &game->theballs[i], 300, M_PI / 4);
         pos += 10;
     }
 
@@ -76,7 +76,11 @@ void handleEvents(game *game)
                 game->ispaused = false;
             }
         }
-
+        if (!keyboardState[SDL_SCANCODE_UP] && !keyboardState[SDL_SCANCODE_DOWN] && !keyboardState[SDL_SCANCODE_LEFT] && !keyboardState[SDL_SCANCODE_RIGHT])
+        {
+            game->player.cycle = 0;
+            Character_animate(&game->player);
+        }
         if (keyboardState[SDL_SCANCODE_UP] && keyboardState[SDL_SCANCODE_RIGHT])
         {
             entity_setTex(&game->player.character, game->player.textures[3]);
@@ -189,10 +193,27 @@ void renderGame(game *game)
 void cleanGame(game *game)
 {
     cleanUp(&game->window);
+    cleanBall(&game->theballs[0]);
+    cleanEntity(&game->player.character);
+    cleanCharacter(&game->player);
+    cleanMap(&game->themap[0]);
 }
 void update(game *game, double deltaTime)
 {
-
+    static int i = 0;
+    if (i > 60)
+    {
+        i = 0;
+    }
+    if (i % 10 == 0)
+    {
+        game->player.cycle++;
+        if (game->player.cycle > 3)
+        {
+            game->player.cycle = 0;
+        }
+    }
+    printf("%d %d\n", i, game->player.cycle);
     setDelta_time(&game->player.character, deltaTime);
     for (int i = 0; i < 10; i++)
     {
@@ -203,4 +224,5 @@ void update(game *game, double deltaTime)
     {
         movecharacter(0, &game->player, &game->themap[game->mapindex]);
     }
+    i++;
 }
