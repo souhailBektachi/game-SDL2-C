@@ -55,6 +55,7 @@ vector2d entity_collision(const SDL_Rect p_a, SDL_Rect p_b, vector2d p_aPos, vec
 {
 
     vector2d p_aVect;
+    printf("%c \n", type);
     vector2d p_bVect;
     vector(&p_aVect, p_aPos.x, p_aPos.y);
     vector(&p_bVect, p_bPos.x, p_bPos.y);
@@ -63,50 +64,89 @@ vector2d entity_collision(const SDL_Rect p_a, SDL_Rect p_b, vector2d p_aPos, vec
     case 'L':
         if (p_aVect.x < p_bVect.x + p_b.w / 4)
         {
-            vector(&p_aVect, p_bVect.x + p_b.w / 4, p_aVect.y);
+
+            vector(&p_aVect, p_bVect.x, p_aVect.y);
         }
 
         break;
     case 'R':
-        if (p_aVect.x + p_a.w > p_bVect.x + (3 * p_b.w / 4))
+        if (p_aVect.x + p_a.w > p_bVect.x + ((3 * p_b.w) / 4))
         {
-            vector(&p_aVect, p_bVect.x + (3 * p_b.w / 4) - p_a.w, p_aVect.y);
+            vector(&p_aVect, p_bVect.x + p_b.w - p_a.w, p_aVect.y);
         }
         break;
     case 'U':
         if (p_aVect.y < p_bVect.y + p_b.h / 4)
         {
-            vector(&p_aVect, p_aVect.x, p_bVect.y + p_b.h / 4);
+
+            vector(&p_aVect, p_aVect.x, p_bVect.y);
         }
         break;
     case 'B':
         if (p_aVect.y + p_a.h > p_bVect.y + (3 * p_b.h / 4))
         {
-            vector(&p_aVect, p_aVect.x, p_bVect.y + (3 * p_b.h / 4) - p_a.h);
+            vector(&p_aVect, p_aVect.x, p_bVect.y + p_b.h - p_a.h);
         }
         break;
     case 'u':
-        if (p_aVect.y < p_bVect.y + p_b.h / 4 || p_aVect.x < p_bVect.x + p_b.w / 4)
+        if (p_aVect.y < p_bVect.y && p_aVect.x < p_bVect.x)
         {
-            vector(&p_aVect, p_bVect.x + p_b.w / 4, p_bVect.y + p_b.h / 4);
+            vector(&p_aVect, p_bVect.x, p_bVect.y);
         }
+        else if (p_aVect.y < p_bVect.y + p_b.h / 4)
+        {
+            vector(&p_aVect, p_aVect.x, p_bVect.y);
+        }
+        else if (p_aVect.x < p_bVect.x + p_b.w / 4)
+        {
+            vector(&p_aVect, p_bVect.x, p_aVect.y);
+        }
+
         break;
     case 'b':
-        if (p_aVect.y + p_a.h > p_bVect.y + (3 * p_b.h / 4) || p_aVect.x < p_bVect.x + p_b.w / 4)
+        if (p_aVect.y + p_a.h > p_bVect.y + p_b.h && p_aVect.x < p_bVect.x)
         {
-            vector(&p_aVect, p_bVect.x + p_b.w / 4, p_bVect.y + (3 * p_b.h / 4) - p_a.h);
+            vector(&p_aVect, p_bVect.x, p_bVect.y + p_b.h - p_a.h);
         }
+        else if (p_aVect.y + p_a.h > p_bVect.y + (3 * p_b.h / 4))
+        {
+            vector(&p_aVect, p_aVect.x, p_bVect.y + p_b.h - p_a.h);
+        }
+        else if (p_aVect.x < p_bVect.x + p_b.w / 4)
+        {
+
+            vector(&p_aVect, p_bVect.x, p_aVect.y);
+        }
+
         break;
     case 'c':
-        if (p_aVect.y < p_bVect.y + p_b.h / 4 || p_aVect.x + p_a.w > p_bVect.x + (3 * p_b.w / 4))
+
+        if (p_aVect.y < p_bVect.y && p_aVect.x + p_a.w > p_bVect.x + p_b.w)
         {
-            vector(&p_aVect, p_bVect.x + (3 * p_b.w / 4) - p_a.w, p_bVect.y + p_b.h / 4);
+            vector(&p_aVect, p_bVect.x + p_b.w - p_a.w, p_bVect.y);
+        }
+        else if (p_aVect.y < p_bVect.y + p_b.h / 4)
+        {
+            vector(&p_aVect, p_aVect.x, p_bVect.y);
+        }
+        else if (p_aVect.x + p_a.w > p_bVect.x + (3 * p_b.w / 4))
+        {
+            vector(&p_aVect, p_bVect.x + p_b.w - p_a.w, p_aVect.y);
         }
         break;
     case 'v':
-        if (p_aVect.y + p_a.h > p_bVect.y + (3 * p_b.h / 4) || p_aVect.x + p_a.w > p_bVect.x + (3 * p_b.w / 4))
+
+        if (p_aVect.y + p_a.h > p_bVect.y + p_b.h && p_aVect.x + p_a.w > p_bVect.x + p_b.w)
         {
-            vector(&p_aVect, p_bVect.x + (3 * p_b.w / 4) - p_a.w, p_bVect.y + (3 * p_b.h / 4) - p_a.h);
+            vector(&p_aVect, p_bVect.x + p_b.w - p_a.w, p_bVect.y + p_b.h - p_a.h);
+        }
+        else if (p_aVect.y + p_a.h > p_bVect.y + (3 * p_b.h / 4))
+        {
+            vector(&p_aVect, p_aVect.x, p_bVect.y + p_b.h - p_a.h);
+        }
+        else if (p_aVect.x + p_a.w > p_bVect.x + (3 * p_b.w / 4))
+        {
+            vector(&p_aVect, p_bVect.x + p_b.w - p_a.w, p_aVect.y);
         }
         break;
 

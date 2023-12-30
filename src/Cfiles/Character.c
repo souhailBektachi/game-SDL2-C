@@ -5,6 +5,7 @@ void character(float x, float y, SDL_Texture *textures[], Character *character, 
     entity(x, y, textures[0], &character->character, 32, 32);
     character->character.destFrame.h = 64;
     character->character.destFrame.w = 64;
+
     character->coll = 0;
     character->speed = speed;
     character->cycle = 0;
@@ -48,6 +49,8 @@ void movecharacter(double angle, Character *character, Map *p_Map)
     float p_x = speed * cos(angle) * Dt;
     float p_y = speed * sin(angle) * Dt;
     entity_setpos(&tempC.character, temppos.x + p_x, temppos.y + p_y);
+    tempC.character.destFrame.x = temppos.x;
+    tempC.character.destFrame.y = temppos.y;
 
     character_collision(&tempC, p_Map);
     entity_setpos(&character->character, tempC.character.pos.x, tempC.character.pos.y);
@@ -64,24 +67,21 @@ void addTextuers(SDL_Texture *textures[], Character *character, int size)
 
 void character_collision(Character *p_a, Map *p_b)
 {
-    int C_x = p_a->character.destFrame.x + p_a->character.destFrame.w / 2;
-    int C_y = p_a->character.destFrame.y + p_a->character.destFrame.h / 2;
     int size = p_b->mapTilesSize.w;
-    for (int i = (C_y / size); i < (C_y / size) + 1; i++)
+    int C_x = p_a->character.destFrame.x + size / 2;
+    int C_y = p_a->character.destFrame.y + size / 2;
+    for (int i = (C_y / size); i <= (C_y / size) + 1; i++)
     {
-        for (int j = (C_x / size); j < (C_x / size) + 1; j++)
+        for (int j = (C_x / size); j <= (C_x / size) + 1; j++)
         {
             mapE Tile = p_b->mapTiles[i][j];
-
             char type = getType(&p_b->walls, Tile.key > 0 ? Tile.key : 0);
             vector2d tempvect = p_a->character.pos;
-            //    int mapTileS=p_b->mapTiles[0][0].Tile.destFrame.h;
 
             if (type != '\0')
             {
-                printf("type %c:%d\n", type, size);
                 tempvect = entity_collision(p_a->character.destFrame, Tile.Tile.destFrame, p_a->character.pos, Tile.Tile.pos, type);
-                vector(&tempvect, tempvect.x, tempvect.y);
+
                 if (tempvect.x != p_a->character.pos.x || tempvect.y != p_a->character.pos.y)
                 {
                     entity_setpos(&p_a->character, tempvect.x, tempvect.y);
@@ -89,7 +89,6 @@ void character_collision(Character *p_a, Map *p_b)
             }
         }
     }
-    printf("________________________\n");
 }
 
 void copy_character(Character *p_a, Character *p_b)

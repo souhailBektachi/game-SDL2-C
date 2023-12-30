@@ -140,7 +140,7 @@ void handleEvents(game *game)
 
                 break;
             case SDLK_r:
-                entity_setpos(&game->player.character, 200, 200);
+                entity_setpos(&game->player.character, 32, 32);
 
                 reveive_character(&game->player);
                 break;
@@ -205,7 +205,7 @@ void update(game *game, double deltaTime)
     {
         i = 0;
     }
-    if (i % 10 == 0)
+    if (i % 5 == 0)
     {
         game->player.cycle++;
         if (game->player.cycle > 3)
@@ -213,7 +213,6 @@ void update(game *game, double deltaTime)
             game->player.cycle = 0;
         }
     }
-    printf("%d %d\n", i, game->player.cycle);
     setDelta_time(&game->player.character, deltaTime);
     for (int i = 0; i < 10; i++)
     {
